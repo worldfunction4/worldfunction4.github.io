@@ -5,7 +5,3 @@
 - 探索网络技术
 - 记录生活点滴
 - 分享有趣思考
-
-[开始阅读](#README.md)
-
-![logo](https://docsify.js.org/_media/icon.svg)
