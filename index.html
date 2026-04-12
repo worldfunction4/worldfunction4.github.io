@@ -32,9 +32,27 @@
       margin-top: 20px;
     }
 
-    /* 侧边栏 */
-    .sidebar { background-color: rgba(255, 255, 255, 0.6) !important; }
-    .sidebar .search, .search-input { display: none !important; }
+.sidebar {
+  position: fixed; 
+  top: 0;
+  bottom: 0;
+  left: 0;
+  height: 100vh; 
+  overflow-y: auto; 
+  z-index: 20;
+}
+
+
+@media screen and (min-width: 768px) {
+  .content {
+    padding-left: 300px;
+  }
+}
+
+
+html {
+  scroll-behavior: smooth;
+}
   </style>
 </head>
 <body>
