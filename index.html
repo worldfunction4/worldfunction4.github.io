@@ -7,57 +7,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
   <style>
-    /*全局背景：固定且不随滚动条移动 */
+    /* 基础背景装修 (保留你喜欢的固定背景) */
     body {
       background-image: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url('assets/1.png') !important;
       background-attachment: fixed !important;
       background-repeat: no-repeat !important;
       background-size: cover !important;
       background-position: center !important;
-      /* 确保溢出内容可以滚动 */
-      overflow-x: hidden; 
-      overflow-y: auto;
     }
 
-    /*封面层透明化 */
+    /* 透明度处理 (保持整体质感) */
+    main, .content, section.cover {
+      background: transparent !important;
+    }
+
     section.cover {
-      background: rgba(255, 255, 255, 0.2) !important; 
+      background: rgba(255, 255, 255, 0.2) !important;
     }
 
-    /*去掉封面自带的蒙版 */
     section.cover.has-mask .mask {
       opacity: 0 !important;
     }
 
-    /*内容区域透明感 */
     .markdown-section {
-      background: rgba(255, 255, 255, 0.85) !important; /* 稍微加深一点点方便阅读 */
+      background: rgba(255, 255, 255, 0.85) !important;
       border-radius: 12px;
       padding: 30px !important;
       margin-top: 20px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     }
 
-    /*侧边栏样式优化 */
+    /*侧边栏与搜索框清理 */
     .sidebar {
       background-color: rgba(255, 255, 255, 0.6) !important;
       border-right: none !important;
     }
     
-    /* 侧边栏里的搜索框容器（如果还有残留痕迹，彻底隐藏） */
-    .sidebar-nav .search {
+    .sidebar .search, .search-input {
       display: none !important;
     }
 
-    /*文字阴影优化，确保在浅色背景图上清晰 */
+    /*封面文字阴影 */
     .cover-main h1, .cover-main p, .cover-main blockquote {
       color: #333 !important;
       text-shadow: 0 1px 3px rgba(255,255,255,0.8);
-    }
-
-    /*容器透明 */
-    main, .content {
-      background: transparent !important;
     }
   </style>
 </head>
@@ -70,7 +62,6 @@
       loadSidebar: true,
       subMaxLevel: 3,
       coverpage: true,
-      onlyCover: false, // 允许滚动出封面
       alias: {
         '/.*/_sidebar.md': '/_sidebar.md'
       },
