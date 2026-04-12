@@ -9,4 +9,3 @@
 [开始阅读](#README.md)
 
 ![logo](https://docsify.js.org/_media/icon.svg)
-![background](assets/1.png)
