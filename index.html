@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <style>
-  /* 1. 全局背景：固定且不随滚动条移动 */
+  /* 全局背景：固定且不随滚动条移动 */
   body {
     background-image: url('assets/1.png') !important;
     background-attachment: fixed !important; /* 固定背景 */
@@ -10,17 +10,17 @@
     background-position: center !important;
   }
 
-  /* 2. 封面层透明化：露出底下的 body 背景 */
+  /* 封面层透明化：露出底下的 body 背景 */
   section.cover {
     background: rgba(255, 255, 255, 0.4) !important; 
   }
 
-  /* 3. 去掉封面自带的背景图，防止重叠 */
+  /* 去掉封面自带的背景图，防止重叠 */
   section.cover.has-mask .mask {
     opacity: 0 !important;
   }
 
-  /* 4. 内容区域透明感 */
+  /* 内容区域透明感 */
   .markdown-section {
     background: rgba(255, 255, 255, 0.8) !important;
     border-radius: 12px;
@@ -28,13 +28,22 @@
     margin-top: 20px;
   }
 
-  /* 5. 侧边栏半透明 */
+  /* 侧边栏半透明 */
   .sidebar {
     background-color: rgba(255, 255, 255, 0.7) !important;
   }
   .cover-main h1, .cover-main p, .cover-main blockquote {
     color: #333 !important; /* 深灰色文字 */
     text-shadow: 0 1px 3px rgba(255,255,255,0.8); /* 白色文字阴影，增加对比度 */
+}
+  /* 强制让最底层的容器透明，否则它会挡住 body 的背景图 */
+main, .content {
+    background: transparent !important;
+}
+
+/* 针对封面背景的彻底透明 */
+section.cover {
+    background: rgba(255, 255, 255, 0.2) !important; 
 }
 </style>
   <meta charset="UTF-8">
