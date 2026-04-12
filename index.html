@@ -1,29 +1,34 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-  <style>
-  /* 1. 设置全屏固定背景 */
+<style>
+  /* 1. 全局背景：固定且不随滚动条移动 */
   body {
-    background-image: url('assets/1.jpg'); 
-    background-attachment: fixed;    /* 固定背景，不随滚动条滑动 */
-    background-repeat: no-repeat;
-    background-size: cover;          /* 覆盖全屏 */
-    background-position: center;
+    background-image: url('assets/126638935_p1.jpg') !important;
+    background-attachment: fixed !important; /* 固定背景 */
+    background-repeat: no-repeat !important;
+    background-size: cover !important;        /* 铺满屏幕 */
+    background-position: center !important;
   }
 
-  /* 2. 调整封面的透明度 */
+  /* 2. 封面层透明化：露出底下的 body 背景 */
   section.cover {
-
-    background-color: rgba(255, 255, 255, 0.3) !important;
+    background: rgba(255, 255, 255, 0.4) !important; 
   }
-    
+
+  /* 3. 去掉封面自带的背景图，防止重叠 */
+  section.cover.has-mask .mask {
+    opacity: 0 !important;
+  }
+
+  /* 4. 内容区域透明感 */
   .markdown-section {
-    background: rgba(255, 255, 255, 0.8); /* 内容区稍微白一点，保证文字清晰 */
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    background: rgba(255, 255, 255, 0.8) !important;
+    border-radius: 12px;
+    padding: 30px !important;
+    margin-top: 20px;
   }
 
+  /* 5. 侧边栏半透明 */
   .sidebar {
     background-color: rgba(255, 255, 255, 0.7) !important;
   }
