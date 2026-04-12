@@ -13,7 +13,6 @@
       background-repeat: no-repeat !important;
       background-size: cover !important;
       background-position: center !important;
-      /* 恢复标准滚动行为 */
       overflow-x: hidden;
       overflow-y: auto;
     }
@@ -57,21 +56,47 @@
   <script>
     window.$docsify = {
       name: 'LAYYES',
+      nameLink: '/', // 确保点击左上角名字跳转回根目录
       repo: 'worldfunction4/worldfunction4.github.io',
       loadSidebar: true,
       subMaxLevel: 3,
       coverpage: true,
+      onlyCover: false, 
       alias: {
         '/.*/_sidebar.md': '/_sidebar.md'
       },
       pagination: {
         previousText: '上一篇',
         nextText: '下一篇',
-      }
+      },
+      // 插件：当路由回到首页时，确保封面正常显示
+      plugins: [
+        function(hook, vm) {
+          hook.doneEach(function() {
+            if (vm.route.path === '/' || vm.route.path === '/README') {
+              const cover = document.querySelector('.cover');
+              if (cover) cover.style.display = 'flex';
+            }
+          });
+        }
+      ]
     }
   </script>
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
-  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  <script>
+    (function() {
+      // 检查当前会话是否已经加载过统计脚本
+      if (!sessionStorage.getItem('busuanzi_locked')) {
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = "//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js";
+        document.body.appendChild(script);
+        // 锁定，直到关闭浏览器窗口/标签页
+        sessionStorage.setItem('busuanzi_locked', 'true');
+      }
+    })();
+  </script>
 </body>
 </html>
