@@ -1,24 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>泪叶丝的个人博客</title>
+  <title>LAYYES | 泪叶丝的个人博客</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="description" content="Description">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
 </head>
 <body>
-  <div id="app"></div>
+  <div id="app">加载中...</div>
   <script>
     window.$docsify = {
-      name: '',
-      repo: ''
-      coverpage: true
-      loadNavbar: true
+      name: 'LAYYES',           // 左上角的名称
+      repo: 'worldfunction4/worldfunction4.github.io', // 挂上 GitHub 图标
+      loadSidebar: true,        // 开启侧边栏
+      subMaxLevel: 3,           // 目录层级
+      coverpage: true,          // 开启封面（颜值核心！）
+      alias: {
+        '/.*/_sidebar.md': '/_sidebar.md'
+      },
+      pagination: {             // 翻页功能
+        previousText: '上一篇',
+        nextText: '下一篇',
+      },
+      search: 'auto',      // 开启搜索框
     }
   </script>
-  <!-- Docsify v4 -->
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
 </body>
 </html>
