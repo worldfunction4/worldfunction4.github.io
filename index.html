@@ -2,54 +2,74 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>泪叶丝的个人博客</title>
+  <title>LAYYES | 泪叶丝的个人博客</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
   <style>
-    /* 基础背景装修 (保留你喜欢的固定背景) */
+    /* 核心：全局固定背景 (基础画布) */
     body {
-      background-image: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url('assets/1.png') !important;
+      /* 这里不加滤镜，保持原图色调 */
+      background-image: url('assets/1.png') !important;
       background-attachment: fixed !important;
       background-repeat: no-repeat !important;
       background-size: cover !important;
       background-position: center !important;
+      margin: 0;
     }
 
-    /* 透明度处理 (保持整体质感) */
-    main, .content, section.cover {
+    /* 移除所有 Docsify 默认的背景色，露出 body 背景 */
+    main, .content, .sidebar, section.cover {
       background: transparent !important;
     }
 
+    /* ========================================= */
+    /* 封面（Cover）专属样式：更深、更纯净 */
+    /* ========================================= */
     section.cover {
-      background: rgba(255, 255, 255, 0.2) !important;
+      /* 这里蒙上一层较深的白色（或灰色）滤镜，满足你"更深一点点"的要求 */
+      /* rgba(255, 255, 255, 0.6) 表示60%不透明的白雾 */
+      background-color: rgba(255, 255, 255, 0.6) !important; 
+      display: flex !important;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
 
+    /* 移除封面自带的蒙版干扰 */
     section.cover.has-mask .mask {
       opacity: 0 !important;
     }
 
-    .markdown-section {
-      background: rgba(255, 255, 255, 0.85) !important;
-      border-radius: 12px;
-      padding: 30px !important;
-      margin-top: 20px;
-    }
-
-    /*侧边栏与搜索框清理 */
-    .sidebar {
-      background-color: rgba(255, 255, 255, 0.6) !important;
-      border-right: none !important;
-    }
-    
-    .sidebar .search, .search-input {
-      display: none !important;
-    }
-
-    /*封面文字阴影 */
+    /* 封面文字样式优化 */
     .cover-main h1, .cover-main p, .cover-main blockquote {
       color: #333 !important;
       text-shadow: 0 1px 3px rgba(255,255,255,0.8);
+    }
+
+    /* ========================================= */
+    /* 文档页（App）专属样式：更亮、更通透 */
+    /* ========================================= */
+    
+    /* 内容区域：白色卡片，较高透明度 */
+    .markdown-section {
+      background: rgba(255, 255, 255, 0.85) !important; /* 85%不透明，很通透 */
+      border-radius: 12px;
+      padding: 30px !important;
+      margin-top: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+
+    /* 侧边栏：极高透明度，几乎隐形 */
+    .sidebar {
+      /* rgba(255, 255, 255, 0.4) 只有40%不透明，主要露出原图色调 */
+      background-color: rgba(255, 255, 255, 0.4) !important;
+      border-right: none !important;
+    }
+
+    /* 彻底隐藏搜索框 (如果还有残留) */
+    .sidebar .search, .search-input {
+      display: none !important;
     }
   </style>
 </head>
@@ -61,7 +81,8 @@
       repo: 'worldfunction4/worldfunction4.github.io',
       loadSidebar: true,
       subMaxLevel: 3,
-      coverpage: true,
+      coverpage: true, // 开启封面
+      // 删除了 onlyCover 和 auto2top，使用默认模式，即点击按钮后跳入正文
       alias: {
         '/.*/_sidebar.md': '/_sidebar.md'
       },
