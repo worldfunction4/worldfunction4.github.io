@@ -1,6 +1,33 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+  <style>
+  /* 1. 设置全屏固定背景 */
+  body {
+    background-image: url('assets/1.jpg'); 
+    background-attachment: fixed;    /* 固定背景，不随滚动条滑动 */
+    background-repeat: no-repeat;
+    background-size: cover;          /* 覆盖全屏 */
+    background-position: center;
+  }
+
+  /* 2. 调整封面的透明度 */
+  section.cover {
+
+    background-color: rgba(255, 255, 255, 0.3) !important;
+  }
+    
+  .markdown-section {
+    background: rgba(255, 255, 255, 0.8); /* 内容区稍微白一点，保证文字清晰 */
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+
+  .sidebar {
+    background-color: rgba(255, 255, 255, 0.7) !important;
+  }
+</style>
   <meta charset="UTF-8">
   <title>LAYYES | 泪叶丝的个人博客</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
