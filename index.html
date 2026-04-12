@@ -7,6 +7,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
   <style>
+    section.cover {
+  height: 100vh !important; /* 强制高度为 100% 视口高度 */
+  width: 100vw !important;
+  position: relative;
+  z-index: 10; /* 确保它在最上层 */
+}
+
+/*只有当正文准备好后（点击按钮后），才允许主体内容出现 */
+body:not(.ready) main {
+  display: none !important;
+}
+
+/* 强制让 docsify 的容器在有封面时不要溢出 */
+body.sticky section.cover {
+  position: fixed;
+  top: 0;
+}
     /* 核心：全局固定背景 (基础画布) */
     body {
       /* 这里不加滤镜，保持原图色调 */
@@ -82,7 +99,8 @@
       loadSidebar: true,
       subMaxLevel: 3,
       coverpage: true, // 开启封面
-      // 删除了 onlyCover 和 auto2top，使用默认模式，即点击按钮后跳入正文
+      coverpage: true,
+      onlyCover: true,
       alias: {
         '/.*/_sidebar.md': '/_sidebar.md'
       },
