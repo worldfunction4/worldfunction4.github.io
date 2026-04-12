@@ -2,29 +2,35 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>泪叶丝的个人博客</title>
+  <title>LAYYES | 泪叶丝的个人博客</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
   <style>
     body {
-      background-image: url('assets/1.png') !important;
+      background-image: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url('assets/1.png') !important;
       background-attachment: fixed !important;
       background-repeat: no-repeat !important;
       background-size: cover !important;
       background-position: center !important;
-      transition: background 0.5s ease;
+      /* 恢复标准滚动行为 */
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+
+    main, .content, section.cover {
+      background: transparent !important;
     }
 
     section.cover {
-      background: rgba(255, 255, 255, 0.4) !important; /* 调整这里的数值可以改变深浅 */
-      height: 100vh;
-      display: flex !important;
+      background: rgba(255, 255, 255, 0.2) !important;
     }
 
-    /* 进入正文后的样式 */
-    main, .content, .sidebar { background: transparent !important; }
-    
+    section.cover.has-mask .mask {
+      opacity: 0 !important;
+    }
+
     .markdown-section {
       background: rgba(255, 255, 255, 0.85) !important;
       border-radius: 12px;
@@ -32,27 +38,20 @@
       margin-top: 20px;
     }
 
-.sidebar {
-  position: fixed; 
-  top: 0;
-  bottom: 0;
-  left: 0;
-  height: 100vh; 
-  overflow-y: auto; 
-  z-index: 20;
-}
 
+    .sidebar {
+      background-color: rgba(255, 255, 255, 0.6) !important;
+      border-right: none !important;
 
-@media screen and (min-width: 768px) {
-  .content {
-    padding-left: 300px;
-  }
-}
-
-
-html {
-  scroll-behavior: smooth;
-}
+    }
+    
+    .sidebar .search, .search-input {
+      display: none !important;
+    }
+    .cover-main h1, .cover-main p, .cover-main blockquote {
+      color: #333 !important;
+      text-shadow: 0 1px 3px rgba(255,255,255,0.8);
+    }
   </style>
 </head>
 <body>
@@ -64,29 +63,14 @@ html {
       loadSidebar: true,
       subMaxLevel: 3,
       coverpage: true,
-      // 这里的逻辑很关键
-      onlyCover: true, 
-      auto2top: true,
-      alias: { '/.*/_sidebar.md': '/_sidebar.md' },
-      pagination: { previousText: '上一篇', nextText: '下一篇' },
-      
-      // 核心钩子：当路由改变时执行
-      plugins: [
-        function(hook, vm) {
-          hook.doneEach(function() {
-            // 如果不在首页路径，强制解除 onlyCover 限制并移除封面类
-            if (vm.route.path !== '/') {
-              document.body.classList.remove('sticky');
-              // 强制显示侧边栏并允许滚动
-              const cover = document.querySelector('.cover');
-              if (cover) cover.style.display = 'none';
-            } else {
-              const cover = document.querySelector('.cover');
-              if (cover) cover.style.display = 'flex';
-            }
-          });
-        }
-      ]
+      // 删除了 onlyCover 和 auto2top 等滑动相关干扰项
+      alias: {
+        '/.*/_sidebar.md': '/_sidebar.md'
+      },
+      pagination: {
+        previousText: '上一篇',
+        nextText: '下一篇',
+      }
     }
   </script>
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
