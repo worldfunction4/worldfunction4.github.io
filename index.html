@@ -123,6 +123,11 @@
             if (vm.route.path === '/' || vm.route.path === '/README') {
               const cover = document.querySelector('.cover');
               if (cover) cover.style.display = 'flex';
+              // 封面重建后，将已缓存的统计数据填回新 DOM
+              var pv = document.getElementById('busuanzi_value_site_pv');
+              var uv = document.getElementById('busuanzi_value_site_uv');
+              if (pv && window._bszPV) { pv.textContent = window._bszPV; pv.removeAttribute('aria-hidden'); }
+              if (uv && window._bszUV) { uv.textContent = window._bszUV; uv.removeAttribute('aria-hidden'); }
             }
           });
         }
@@ -134,55 +139,31 @@
 
   <script>
     (function() {
-      if (!sessionStorage.getItem('busuanzi_locked')) {
-        var script = document.createElement('script');
-        script.async = true;
-        script.src = "https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js";
-        script.crossOrigin = "anonymous";
+      var script = document.createElement('script');
+      script.async = true;
+      script.src = "https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js";
+      script.crossOrigin = "anonymous";
 
-        var checkBusuanziData = function() {
+      script.onload = function() {
+        var startTime = Date.now();
+        var check = function() {
           var pv = document.getElementById('busuanzi_value_site_pv');
           var uv = document.getElementById('busuanzi_value_site_uv');
-
-          var pvLoaded = pv && pv.textContent && /^\d+$/.test(pv.textContent.trim());
-          var uvLoaded = uv && uv.textContent && /^\d+$/.test(uv.textContent.trim());
-
-          if (pvLoaded && uvLoaded) {
-            sessionStorage.setItem('busuanzi_locked', 'true');
-            if (pv) pv.removeAttribute('aria-hidden');
-            if (uv) uv.removeAttribute('aria-hidden');
-            return true;
+          var pvVal = pv && pv.textContent.trim();
+          var uvVal = uv && uv.textContent.trim();
+          if (/^\d+$/.test(pvVal) && /^\d+$/.test(uvVal)) {
+            window._bszPV = pvVal;
+            window._bszUV = uvVal;
+            pv.removeAttribute('aria-hidden');
+            uv.removeAttribute('aria-hidden');
+          } else if (Date.now() - startTime < 10000) {
+            setTimeout(check, 300);
           }
-          return false;
         };
+        setTimeout(check, 500);
+      };
 
-        script.onload = function() {
-          var startTime = Date.now();
-          var maxWaitTime = 10000;
-
-          var checkAndRetry = function() {
-            if (checkBusuanziData()) {
-              return;
-            }
-
-            if (Date.now() - startTime < maxWaitTime) {
-              setTimeout(checkAndRetry, 300);
-            } else {
-              sessionStorage.setItem('busuanzi_locked', 'timeout');
-              console.warn('busuanzi data load timeout after 10s');
-            }
-          };
-
-          setTimeout(checkAndRetry, 500);
-        };
-
-        script.onerror = function() {
-          sessionStorage.setItem('busuanzi_locked', 'failed');
-          console.warn('busuanzi script failed to load');
-        };
-
-        document.body.appendChild(script);
-      }
+      document.body.appendChild(script);
     })();
   </script>
 </body>
