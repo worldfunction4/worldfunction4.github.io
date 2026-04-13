@@ -156,10 +156,35 @@
       }
     }
 
-    /* 手机端：768px 以下隐藏 */
+    /* 手机端：768px 以下调整样式 - 居中显示在页面底部 */
     @media (max-width: 768px) {
       .sidebar-stats {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        width: auto;
+        padding: 12px 20px;
+        border-top: none;
+        border-radius: 20px;
+        z-index: 100;
+      }
+
+      .stat-item {
+        gap: 4px;
+      }
+
+      .stat-icon {
+        font-size: 1em;
+      }
+
+      .stat-label {
         display: none;
+      }
+
+      .stats-container {
+        gap: 15px;
       }
     }
   </style>
@@ -185,62 +210,75 @@
       // 插件：当路由回到首页时，确保封面正常显示
       plugins: [
         function(hook, vm) {
-          // 在 Docsify 完全初始化后注入统计模块
+          // 初始化统计模块
           hook.ready(function() {
             function injectStatistics() {
               const sidebar = document.querySelector('.sidebar');
-              const existingStats = document.querySelector('.sidebar-stats');
+              if (!sidebar || document.querySelector('.sidebar-stats')) return;
 
-              if (sidebar && !existingStats) {
-                const statsHtml = `
-                  <div class="sidebar-stats" role="status" aria-live="polite">
-                    <div class="stats-container">
-                      <div class="stat-item">
-                        <span class="stat-icon">👁️</span>
-                        <span class="stat-label">访问</span>
-                        <span class="stat-value" id="sidebar-pv" aria-hidden="true">--</span>
-                      </div>
-                      <div class="stat-item">
-                        <span class="stat-icon">👤</span>
-                        <span class="stat-label">访客</span>
-                        <span class="stat-value" id="sidebar-uv" aria-hidden="true">--</span>
-                      </div>
+              const statsHtml = `
+                <div class="sidebar-stats" role="status" aria-live="polite">
+                  <div class="stats-container">
+                    <div class="stat-item">
+                      <span class="stat-icon">👁️</span>
+                      <span class="stat-label">访问</span>
+                      <span class="stat-value" id="sidebar-pv" aria-hidden="true">--</span>
+                    </div>
+                    <div class="stat-item">
+                      <span class="stat-icon">👤</span>
+                      <span class="stat-label">访客</span>
+                      <span class="stat-value" id="sidebar-uv" aria-hidden="true">--</span>
                     </div>
                   </div>
-                `;
+                </div>
+              `;
 
-                sidebar.appendChild(document.createRange().createContextualFragment(statsHtml));
+              sidebar.appendChild(document.createRange().createContextualFragment(statsHtml));
 
-                // 初始化已缓存的数据
-                if (window._bszPV) {
-                  document.getElementById('sidebar-pv').textContent = window._bszPV;
-                  document.getElementById('sidebar-pv').removeAttribute('aria-hidden');
-                }
-                if (window._bszUV) {
-                  document.getElementById('sidebar-uv').textContent = window._bszUV;
-                  document.getElementById('sidebar-uv').removeAttribute('aria-hidden');
-                }
+              // 更新缓存的数据
+              updateStatistics();
+            }
+
+            function updateStatistics() {
+              const pvEl = document.getElementById('sidebar-pv');
+              const uvEl = document.getElementById('sidebar-uv');
+
+              if (window._bszPV && pvEl) {
+                pvEl.textContent = window._bszPV;
+                pvEl.removeAttribute('aria-hidden');
+              }
+              if (window._bszUV && uvEl) {
+                uvEl.textContent = window._bszUV;
+                uvEl.removeAttribute('aria-hidden');
               }
             }
 
-            // 等待 Docsify 完全渲染后注入
             setTimeout(injectStatistics, 100);
           });
 
+          // 页面切换时更新统计数据
           hook.doneEach(function() {
+            // 处理封面显示
             if (vm.route.path === '/' || vm.route.path === '/README') {
               const cover = document.querySelector('.cover');
               if (cover) cover.style.display = 'flex';
-              // 封面重建后，将已缓存的统计数据填回新 DOM
-              var pv = document.getElementById('busuanzi_value_site_pv');
-              var uv = document.getElementById('busuanzi_value_site_uv');
-              if (pv && window._bszPV) { pv.textContent = window._bszPV; pv.removeAttribute('aria-hidden'); }
-              if (uv && window._bszUV) { uv.textContent = window._bszUV; uv.removeAttribute('aria-hidden'); }
+
+              // 更新封面统计数据
+              const pv = document.getElementById('busuanzi_value_site_pv');
+              const uv = document.getElementById('busuanzi_value_site_uv');
+              if (pv && window._bszPV) {
+                pv.textContent = window._bszPV;
+                pv.removeAttribute('aria-hidden');
+              }
+              if (uv && window._bszUV) {
+                uv.textContent = window._bszUV;
+                uv.removeAttribute('aria-hidden');
+              }
             }
 
-            // 更新侧边栏统计
-            var sidebarPv = document.getElementById('sidebar-pv');
-            var sidebarUv = document.getElementById('sidebar-uv');
+            // 更新侧边栏统计数据
+            const sidebarPv = document.getElementById('sidebar-pv');
+            const sidebarUv = document.getElementById('sidebar-uv');
             if (sidebarPv && window._bszPV) {
               sidebarPv.textContent = window._bszPV;
               sidebarPv.removeAttribute('aria-hidden');
