@@ -46,6 +46,7 @@
     }
 
     .sidebar {
+      position: relative;
       background-color: rgba(255, 255, 255, 0.6);
       border-right: none;
     }
@@ -96,6 +97,71 @@
     .cover-stats .stat-value[aria-hidden="true"] {
       opacity: 0.6;
     }
+
+    /* 侧边栏统计模块 */
+    .sidebar-stats {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 15px;
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+      background: rgba(255, 255, 255, 0.3);
+      font-size: 0.8em;
+      color: #666;
+    }
+
+    .stats-container {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .stat-icon {
+      font-size: 1.2em;
+      opacity: 0.8;
+    }
+
+    .stat-label {
+      font-weight: 500;
+      opacity: 0.8;
+    }
+
+    .stat-value {
+      font-weight: 600;
+      color: #333;
+      min-width: 40px;
+    }
+
+    .stat-value[aria-hidden="true"] {
+      opacity: 0.5;
+    }
+
+    /* 深色模式 */
+    @media (prefers-color-scheme: dark) {
+      .sidebar-stats {
+        background: rgba(30, 30, 30, 0.4);
+        border-top-color: rgba(255, 255, 255, 0.1);
+        color: #aaa;
+      }
+
+      .stat-value {
+        color: #e0e0e0;
+      }
+    }
+
+    /* 手机端：768px 以下隐藏 */
+    @media (max-width: 768px) {
+      .sidebar-stats {
+        display: none;
+      }
+    }
   </style>
 </head>
 <body>
@@ -119,6 +185,48 @@
       // 插件：当路由回到首页时，确保封面正常显示
       plugins: [
         function(hook, vm) {
+          // 在 Docsify 完全初始化后注入统计模块
+          hook.ready(function() {
+            function injectStatistics() {
+              const sidebar = document.querySelector('.sidebar');
+              const existingStats = document.querySelector('.sidebar-stats');
+
+              if (sidebar && !existingStats) {
+                const statsHtml = `
+                  <div class="sidebar-stats" role="status" aria-live="polite">
+                    <div class="stats-container">
+                      <div class="stat-item">
+                        <span class="stat-icon">👁️</span>
+                        <span class="stat-label">访问</span>
+                        <span class="stat-value" id="sidebar-pv" aria-hidden="true">--</span>
+                      </div>
+                      <div class="stat-item">
+                        <span class="stat-icon">👤</span>
+                        <span class="stat-label">访客</span>
+                        <span class="stat-value" id="sidebar-uv" aria-hidden="true">--</span>
+                      </div>
+                    </div>
+                  </div>
+                `;
+
+                sidebar.appendChild(document.createRange().createContextualFragment(statsHtml));
+
+                // 初始化已缓存的数据
+                if (window._bszPV) {
+                  document.getElementById('sidebar-pv').textContent = window._bszPV;
+                  document.getElementById('sidebar-pv').removeAttribute('aria-hidden');
+                }
+                if (window._bszUV) {
+                  document.getElementById('sidebar-uv').textContent = window._bszUV;
+                  document.getElementById('sidebar-uv').removeAttribute('aria-hidden');
+                }
+              }
+            }
+
+            // 等待 Docsify 完全渲染后注入
+            setTimeout(injectStatistics, 100);
+          });
+
           hook.doneEach(function() {
             if (vm.route.path === '/' || vm.route.path === '/README') {
               const cover = document.querySelector('.cover');
@@ -128,6 +236,18 @@
               var uv = document.getElementById('busuanzi_value_site_uv');
               if (pv && window._bszPV) { pv.textContent = window._bszPV; pv.removeAttribute('aria-hidden'); }
               if (uv && window._bszUV) { uv.textContent = window._bszUV; uv.removeAttribute('aria-hidden'); }
+            }
+
+            // 更新侧边栏统计
+            var sidebarPv = document.getElementById('sidebar-pv');
+            var sidebarUv = document.getElementById('sidebar-uv');
+            if (sidebarPv && window._bszPV) {
+              sidebarPv.textContent = window._bszPV;
+              sidebarPv.removeAttribute('aria-hidden');
+            }
+            if (sidebarUv && window._bszUV) {
+              sidebarUv.textContent = window._bszUV;
+              sidebarUv.removeAttribute('aria-hidden');
             }
           });
         }
