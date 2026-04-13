@@ -1,33 +1,39 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+本文件为 Claude Code (claude.ai/code) 在此仓库中工作时提供指导。
 
-## Project Overview
+## 项目概览
 
-Static blog site for 泪叶丝 (LAYYES), built with [Docsify](https://docsify.js.org/) and hosted on GitHub Pages at `layyes.com`. No build step — all content is rendered client-side by Docsify.
+泪叶丝 (LAYYES) 的静态博客网站，基于 [Docsify](https://docsify.js.org/) 构建，托管在 GitHub Pages 的 `layyes.com` 上。无需构建步骤 — 所有内容由 Docsify 在客户端渲染。
 
-## Development
+## 本地开发
 
-To preview locally, serve the repo root with any static file server, e.g.:
+要在本地预览，使用任意静态文件服务器提供仓库根目录，例如：
 
 ```bash
 npx serve .
-# or
+# 或
 python -m http.server 3000
 ```
 
-There are no build, lint, or test commands.
+没有 build、lint 或 test 命令。
 
-## Architecture
+## 项目结构
 
-- `index.html` — entry point; contains all Docsify config (`window.$docsify`), inline CSS, and the busuanzi visit-counter script
-- `_coverpage.md` — cover page content; hosts the busuanzi counter HTML (`#busuanzi_value_site_pv`, `#busuanzi_value_site_uv`)
-- `_sidebar.md` — global sidebar navigation (all subdirectories reuse it via the `alias` config)
-- `README.md` — homepage content shown after the cover
-- Content pages live alongside `_sidebar.md` entries (e.g. `Network/路由器.md`)
+- `index.html` — 入口文件；包含所有 Docsify 配置（`window.$docsify`）、inline CSS 和 busuanzi 访问计数脚本
+- `_coverpage.md` — 封面页内容；包含 busuanzi 计数器 HTML（`#busuanzi_value_site_pv`、`#busuanzi_value_site_uv`）
+- `_sidebar.md` — 全局侧边栏导航（所有子目录通过 `alias` 配置复用）
+- `README.md` — 封面后显示的首页内容
+- 内容页面与 `_sidebar.md` 条目并行放置（例如 `Network/路由器.md`）
 
-## Key Behaviours
+## 关键行为
 
-- **Busuanzi counter**: loaded once per session via `sessionStorage` (`busuanzi_locked`). Validates data with `/^\d+$/` and retries for up to 10 s before timing out.
-- **Sidebar alias**: `'/.*/_sidebar.md': '/_sidebar.md'` forces all routes to use the root sidebar.
-- **Cover visibility**: a Docsify plugin in `index.html` re-shows the cover when navigating back to `/`.
+- **Busuanzi 计数器**：通过 `sessionStorage`（`busuanzi_locked`）每个会话加载一次。使用 `/^\d+$/` 验证数据，最多重试 10 秒后超时。
+- **侧边栏别名**：`'/.*/_sidebar.md': '/_sidebar.md'` 强制所有路由使用根侧边栏。
+- **封面可见性**：`index.html` 中的 Docsify 插件在导航回 `/` 时重新显示封面。
+## 当前需求
+
+我需要重新设计博客的访客记录模块，要求如下：
+- **视觉风格**：极简、半透明背景、位于侧边栏底部。
+- **功能**：显示总访问量和访客人数，数据通过 busuanzi 获取。
+- **布局规范**：1.手机端访问时必须保持居中且不遮挡正文。2.字体颜色需适配 Docsify 的深色/浅色模式切换。
