@@ -15,6 +15,7 @@
       background-size: cover;
       background-position: center;
       overflow-x: hidden;
+      overflow-y: auto;
     }
 
     main, .content {
@@ -133,11 +134,14 @@
         script.src = "https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js";
         script.onload = function() {
           try {
-            sessionStorage.setItem('busuanzi_locked', 'true');
-            var pv = document.getElementById('busuanzi_value_site_pv');
-            var uv = document.getElementById('busuanzi_value_site_uv');
-            if (pv && pv.textContent && pv.textContent.trim() !== '') pv.removeAttribute('aria-hidden');
-            if (uv && uv.textContent && uv.textContent.trim() !== '') uv.removeAttribute('aria-hidden');
+            // 等待busuanzi完成数据更新后再移除aria-hidden
+            setTimeout(function() {
+              sessionStorage.setItem('busuanzi_locked', 'true');
+              var pv = document.getElementById('busuanzi_value_site_pv');
+              var uv = document.getElementById('busuanzi_value_site_uv');
+              if (pv && pv.textContent && pv.textContent.trim() !== '加载中') pv.removeAttribute('aria-hidden');
+              if (uv && uv.textContent && uv.textContent.trim() !== '加载中') uv.removeAttribute('aria-hidden');
+            }, 500);
           } catch (e) {
             console.warn('busuanzi onload handler error', e);
           }
