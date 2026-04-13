@@ -6,7 +6,7 @@
   <meta name="description" content="泪叶丝的个人博客，分享技术、生活和思考">
   <title>泪叶丝的个人博客</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
   <style>
     body {
       background-image: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url('assets/1.png');
@@ -65,6 +65,28 @@
         margin-top: 10px;
       }
     }
+
+    /* 封面统计样式 */
+    .cover-stats {
+      font-size: 0.9em;
+      color: #666;
+      margin-top: 30px;
+      text-align: left;
+      padding-left: 15px;
+    }
+
+    .cover-stats .stat-row {
+      margin: 6px 0;
+    }
+
+    .cover-stats .stat-label {
+      color: #888;
+      margin-right: 6px;
+    }
+
+    .cover-stats .stat-value[aria-hidden="true"] {
+      opacity: 0.6;
+    }
   </style>
 </head>
 <body>
@@ -99,18 +121,33 @@
     }
   </script>
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
-  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/docsify@4"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
 
   <script>
     (function() {
-      // 检查当前会话是否已经加载过统计脚本
+      // 更稳健地加载 busuanzi：只有在脚本成功加载后才设置锁并展示数据
       if (!sessionStorage.getItem('busuanzi_locked')) {
         var script = document.createElement('script');
         script.async = true;
-        script.src = "//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js";
+        script.src = "https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js";
+        script.onload = function() {
+          try {
+            sessionStorage.setItem('busuanzi_locked', 'true');
+            var pv = document.getElementById('busuanzi_value_site_pv');
+            var uv = document.getElementById('busuanzi_value_site_uv');
+            if (pv && pv.textContent && pv.textContent.trim() !== '') pv.removeAttribute('aria-hidden');
+            if (uv && uv.textContent && uv.textContent.trim() !== '') uv.removeAttribute('aria-hidden');
+          } catch (e) {
+            console.warn('busuanzi onload handler error', e);
+          }
+        };
+        script.onerror = function() {
+          // 加载失败时记录避免无限重试
+          sessionStorage.setItem('busuanzi_locked', 'failed');
+          console.warn('busuanzi script failed to load');
+        };
         document.body.appendChild(script);
-        // 锁定，直到关闭浏览器窗口/标签页
-        sessionStorage.setItem('busuanzi_locked', 'true');
       }
     })();
   </script>

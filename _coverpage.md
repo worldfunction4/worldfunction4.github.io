@@ -9,12 +9,16 @@
 
 ---
 
-<div style="font-size: 0.8em; color: #999; margin-top: 30px; text-align: left; padding-left: 15px;">
-  <span id="busuanzi_container_site_pv" style="display:none">
-    👁️ 总访问量 <span id="busuanzi_value_site_pv"></span> 次
-  </span>
-  <br>
-  <span id="busuanzi_container_site_uv" style="display:none">
-    👤 访客人数 <span id="busuanzi_value_site_uv"></span> 人
-  </span>
+<div class="cover-stats" role="status" aria-live="polite">
+  <div class="stat-row">
+    <span class="stat-label">👁️ 总访问量：</span>
+    <span id="busuanzi_value_site_pv" class="stat-value" aria-hidden="true">加载中</span>
+  </div>
+  <div class="stat-row">
+    <span class="stat-label">👤 访客人数：</span>
+    <span id="busuanzi_value_site_uv" class="stat-value" aria-hidden="true">加载中</span>
+  </div>
+  <noscript>
+    <div class="stat-row">统计信息需启用 JavaScript</div>
+  </noscript>
 </div>
