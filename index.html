@@ -121,36 +121,54 @@
       ]
     }
   </script>
-  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/docsify@4"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
 
   <script>
     (function() {
-      // 更稳健地加载 busuanzi：只有在脚本成功加载后才设置锁并展示数据
       if (!sessionStorage.getItem('busuanzi_locked')) {
         var script = document.createElement('script');
         script.async = true;
         script.src = "https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js";
-        script.onload = function() {
-          try {
-            // 等待busuanzi完成数据更新后再移除aria-hidden
-            setTimeout(function() {
-              sessionStorage.setItem('busuanzi_locked', 'true');
-              var pv = document.getElementById('busuanzi_value_site_pv');
-              var uv = document.getElementById('busuanzi_value_site_uv');
-              if (pv && pv.textContent && pv.textContent.trim() !== '加载中') pv.removeAttribute('aria-hidden');
-              if (uv && uv.textContent && uv.textContent.trim() !== '加载中') uv.removeAttribute('aria-hidden');
-            }, 500);
-          } catch (e) {
-            console.warn('busuanzi onload handler error', e);
+
+        var checkBusuanziData = function() {
+          var pv = document.getElementById('busuanzi_value_site_pv');
+          var uv = document.getElementById('busuanzi_value_site_uv');
+
+          var pvLoaded = pv && pv.textContent && /^\d+$/.test(pv.textContent.trim());
+          var uvLoaded = uv && uv.textContent && /^\d+$/.test(uv.textContent.trim());
+
+          if (pvLoaded && uvLoaded) {
+            sessionStorage.setItem('busuanzi_locked', 'true');
+            if (pv) pv.removeAttribute('aria-hidden');
+            if (uv) uv.removeAttribute('aria-hidden');
+            return true;
           }
+          return false;
         };
+
+        script.onload = function() {
+          // 第一次检查延迟500ms
+          setTimeout(function() {
+            if (!checkBusuanziData()) {
+              // 如果失败，继续重试（最多10次，总共5秒）
+              var retryCount = 0;
+              var retryTimer = setInterval(function() {
+                if (checkBusuanziData() || retryCount >= 10) {
+                  clearInterval(retryTimer);
+                } else {
+                  retryCount++;
+                }
+              }, 500);
+            }
+          }, 500);
+        };
+
         script.onerror = function() {
-          // 加载失败时记录避免无限重试
           sessionStorage.setItem('busuanzi_locked', 'failed');
           console.warn('busuanzi script failed to load');
         };
+
         document.body.appendChild(script);
       }
     })();
