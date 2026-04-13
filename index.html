@@ -45,6 +45,26 @@
       color: #333;
       text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8);
     }
+
+    /* 使图片和文本自适应 */
+    .markdown-section img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 20px auto;
+    }
+
+    .markdown-section p, .markdown-section li, .markdown-section blockquote {
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+
+    @media (max-width: 768px) {
+      .markdown-section {
+        padding: 20px;
+        margin-top: 10px;
+      }
+    }
   </style>
 </head>
 <body>
