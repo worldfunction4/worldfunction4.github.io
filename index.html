@@ -10,9 +10,7 @@
   <meta name="robots" content="index, follow">
   <title>泪叶丝的个人博客</title>
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
-  <link rel="preconnect" href="https://busuanzi.ibruce.info">
   <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
-  <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
   <style>
     body {
@@ -191,6 +189,24 @@
 </head>
 <body>
   <div id="app">加载中...</div>
+
+  <!-- 封面统计元素 -->
+  <div id="cover-stats-container" style="display: none;">
+    <div class="cover-stats" role="status" aria-live="polite">
+      <div class="stat-row">
+        <span class="stat-label">👁️ 总访问量：</span>
+        <span id="busuanzi_value_site_pv" class="stat-value" aria-hidden="true">加载中</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">👤 访客人数：</span>
+        <span id="busuanzi_value_site_uv" class="stat-value" aria-hidden="true">加载中</span>
+      </div>
+      <noscript>
+        <div class="stat-row">统计信息需启用 JavaScript</div>
+      </noscript>
+    </div>
+  </div>
+
   <script>
     window.$docsify = {
       name: 'LAYYES',
@@ -296,60 +312,70 @@
   <script defer src="https://cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
 
   <script>
+    // 简单的本地访问统计
     (function() {
-      var script = document.createElement('script');
-      script.async = true;
-      script.src = "https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js";
-      script.crossOrigin = "anonymous";
-
-      script.onerror = function() {
-        console.warn('Busuanzi 脚本加载失败，尝试备用方案');
-        loadBusuanziData();
-      };
-
-      script.onload = function() {
-        setTimeout(function() {
-          loadBusuanziData();
-        }, 100);
-      };
-
-      function loadBusuanziData() {
-        var startTime = Date.now();
-        var check = function() {
-          var pv = document.getElementById('busuanzi_value_site_pv');
-          var uv = document.getElementById('busuanzi_value_site_uv');
-          var pvVal = pv && pv.textContent.trim();
-          var uvVal = uv && uv.textContent.trim();
-
-          if (/^\d+$/.test(pvVal) && /^\d+$/.test(uvVal)) {
-            window._bszPV = pvVal;
-            window._bszUV = uvVal;
-            if (pv) pv.removeAttribute('aria-hidden');
-            if (uv) uv.removeAttribute('aria-hidden');
-            updateSidebarStats();
-          } else if (Date.now() - startTime < 15000) {
-            setTimeout(check, 300);
-          } else {
-            console.warn('Busuanzi 数据加载超时');
-          }
+      function initStats() {
+        var stats = {
+          pv: parseInt(localStorage.getItem('layyes_pv') || '0'),
+          uv: parseInt(localStorage.getItem('layyes_uv') || '0')
         };
-        check();
+
+        // PV 每次页面加载都增加
+        stats.pv++;
+
+        // UV 用 sessionStorage 判断是否是新访客
+        if (!sessionStorage.getItem('layyes_visited')) {
+          stats.uv++;
+          sessionStorage.setItem('layyes_visited', '1');
+        }
+
+        // 保存数据
+        localStorage.setItem('layyes_pv', stats.pv);
+        localStorage.setItem('layyes_uv', stats.uv);
+
+        // 设置全局变量供 Docsify 插件使用
+        window._bszPV = String(stats.pv);
+        window._bszUV = String(stats.uv);
+
+        // 更新 DOM
+        updateDisplay();
       }
 
-      function updateSidebarStats() {
+      function updateDisplay() {
+        var pv = document.getElementById('busuanzi_value_site_pv');
+        var uv = document.getElementById('busuanzi_value_site_uv');
         var sidebarPv = document.getElementById('sidebar-pv');
         var sidebarUv = document.getElementById('sidebar-uv');
-        if (window._bszPV && sidebarPv) {
+
+        if (pv) {
+          pv.textContent = window._bszPV;
+          pv.removeAttribute('aria-hidden');
+        }
+        if (uv) {
+          uv.textContent = window._bszUV;
+          uv.removeAttribute('aria-hidden');
+        }
+        if (sidebarPv) {
           sidebarPv.textContent = window._bszPV;
           sidebarPv.removeAttribute('aria-hidden');
         }
-        if (window._bszUV && sidebarUv) {
+        if (sidebarUv) {
           sidebarUv.textContent = window._bszUV;
           sidebarUv.removeAttribute('aria-hidden');
         }
       }
 
-      document.body.appendChild(script);
+      // 页面加载时初始化
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initStats);
+      } else {
+        initStats();
+      }
+
+      // Docsify 路由切换时更新显示
+      window.addEventListener('hashchange', function() {
+        setTimeout(updateDisplay, 100);
+      });
     })();
   </script>
 </body>
