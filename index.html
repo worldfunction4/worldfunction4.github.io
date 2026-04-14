@@ -74,115 +74,65 @@
       }
     }
 
-    /* 封面统计样式 */
+    /* 封面访客统计模块 - 左下角固定 */
     .cover-stats {
-      font-size: 0.9em;
-      color: #666;
-      margin-top: 30px;
-      text-align: left;
-      padding-left: 15px;
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      z-index: 200;
+      display: none; /* 默认隐藏，仅封面页显示 */
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border-radius: 12px;
+      padding: 10px 16px;
+      font-size: 0.82em;
+      color: #555;
+      line-height: 1.8;
+    }
+
+    .cover-stats.visible {
+      display: block;
     }
 
     .cover-stats .stat-row {
-      margin: 6px 0;
-    }
-
-    .cover-stats .stat-label {
-      color: #888;
-      margin-right: 6px;
-    }
-
-    .cover-stats .stat-value[aria-hidden="true"] {
-      opacity: 0.6;
-    }
-
-    /* 侧边栏统计模块 */
-    .sidebar-stats {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 15px;
-      border-top: 1px solid rgba(0, 0, 0, 0.05);
-      background: rgba(255, 255, 255, 0.3);
-      font-size: 0.8em;
-      color: #666;
-    }
-
-    .stats-container {
-      display: flex;
-      gap: 20px;
-      justify-content: center;
-    }
-
-    .stat-item {
       display: flex;
       align-items: center;
       gap: 6px;
     }
 
-    .stat-icon {
-      font-size: 1.2em;
-      opacity: 0.8;
+    .cover-stats .stat-label {
+      opacity: 0.75;
     }
 
-    .stat-label {
-      font-weight: 500;
-      opacity: 0.8;
-    }
-
-    .stat-value {
+    .cover-stats .stat-value {
       font-weight: 600;
       color: #333;
-      min-width: 40px;
     }
 
-    .stat-value[aria-hidden="true"] {
+    .cover-stats .stat-value[aria-hidden="true"] {
       opacity: 0.5;
     }
 
-    /* 深色模式 */
+    /* 深色模式适配 */
     @media (prefers-color-scheme: dark) {
-      .sidebar-stats {
-        background: rgba(30, 30, 30, 0.4);
-        border-top-color: rgba(255, 255, 255, 0.1);
-        color: #aaa;
+      .cover-stats {
+        background: rgba(20, 20, 20, 0.35);
+        color: #bbb;
       }
 
-      .stat-value {
+      .cover-stats .stat-value {
         color: #e0e0e0;
       }
     }
 
-    /* 手机端：768px 以下调整样式 - 居中显示在页面底部 */
+    /* 手机端：居中显示在底部，不遮挡正文 */
     @media (max-width: 768px) {
-      .sidebar-stats {
-        position: fixed;
-        bottom: 20px;
+      .cover-stats {
         left: 50%;
-        right: auto;
         transform: translateX(-50%);
-        width: auto;
-        padding: 12px 20px;
-        border-top: none;
-        border-radius: 20px;
-        z-index: 100;
-      }
-
-      .stat-item {
-        gap: 4px;
-      }
-
-      .stat-icon {
-        font-size: 1em;
-      }
-
-      .stat-label {
-        display: none;
-      }
-
-      .stats-container {
-        gap: 15px;
+        bottom: 16px;
+        white-space: nowrap;
       }
     }
   </style>
@@ -190,20 +140,15 @@
 <body>
   <div id="app">加载中...</div>
 
-  <!-- 封面统计元素 -->
-  <div id="cover-stats-container" style="display: none;">
-    <div class="cover-stats" role="status" aria-live="polite">
-      <div class="stat-row">
-        <span class="stat-label">👁️ 总访问量：</span>
-        <span id="busuanzi_value_site_pv" class="stat-value" aria-hidden="true">加载中</span>
-      </div>
-      <div class="stat-row">
-        <span class="stat-label">👤 访客人数：</span>
-        <span id="busuanzi_value_site_uv" class="stat-value" aria-hidden="true">加载中</span>
-      </div>
-      <noscript>
-        <div class="stat-row">统计信息需启用 JavaScript</div>
-      </noscript>
+  <!-- 封面左下角访客统计 -->
+  <div id="cover-stats" class="cover-stats" role="status" aria-live="polite">
+    <div class="stat-row">
+      <span class="stat-label">👁️ 访问：</span>
+      <span id="busuanzi_value_site_pv" class="stat-value" aria-hidden="true">--</span>
+    </div>
+    <div class="stat-row">
+      <span class="stat-label">👤 访客：</span>
+      <span id="busuanzi_value_site_uv" class="stat-value" aria-hidden="true">--</span>
     </div>
   </div>
 
@@ -226,60 +171,15 @@
       // 插件：当路由回到首页时，确保封面正常显示
       plugins: [
         function(hook, vm) {
-          // 初始化统计模块
-          hook.ready(function() {
-            function injectStatistics() {
-              const sidebar = document.querySelector('.sidebar');
-              if (!sidebar || document.querySelector('.sidebar-stats')) return;
-
-              const statsHtml = `
-                <div class="sidebar-stats" role="status" aria-live="polite">
-                  <div class="stats-container">
-                    <div class="stat-item">
-                      <span class="stat-icon">👁️</span>
-                      <span class="stat-label">访问</span>
-                      <span class="stat-value" id="sidebar-pv" aria-hidden="true">--</span>
-                    </div>
-                    <div class="stat-item">
-                      <span class="stat-icon">👤</span>
-                      <span class="stat-label">访客</span>
-                      <span class="stat-value" id="sidebar-uv" aria-hidden="true">--</span>
-                    </div>
-                  </div>
-                </div>
-              `;
-
-              sidebar.appendChild(document.createRange().createContextualFragment(statsHtml));
-
-              // 更新缓存的数据
-              updateStatistics();
-            }
-
-            function updateStatistics() {
-              const pvEl = document.getElementById('sidebar-pv');
-              const uvEl = document.getElementById('sidebar-uv');
-
-              if (window._bszPV && pvEl) {
-                pvEl.textContent = window._bszPV;
-                pvEl.removeAttribute('aria-hidden');
-              }
-              if (window._bszUV && uvEl) {
-                uvEl.textContent = window._bszUV;
-                uvEl.removeAttribute('aria-hidden');
-              }
-            }
-
-            setTimeout(injectStatistics, 100);
-          });
-
-          // 页面切换时更新统计数据
+          // 页面切换时控制封面统计显示
           hook.doneEach(function() {
-            // 处理封面显示
-            if (vm.route.path === '/' || vm.route.path === '/README') {
-              const cover = document.querySelector('.cover');
-              if (cover) cover.style.display = 'flex';
+            const statsEl = document.getElementById('cover-stats');
+            if (!statsEl) return;
 
-              // 更新封面统计数据
+            const isHome = vm.route.path === '/' || vm.route.path === '/README';
+            if (isHome) {
+              statsEl.classList.add('visible');
+              // 更新数据
               const pv = document.getElementById('busuanzi_value_site_pv');
               const uv = document.getElementById('busuanzi_value_site_uv');
               if (pv && window._bszPV) {
@@ -290,18 +190,8 @@
                 uv.textContent = window._bszUV;
                 uv.removeAttribute('aria-hidden');
               }
-            }
-
-            // 更新侧边栏统计数据
-            const sidebarPv = document.getElementById('sidebar-pv');
-            const sidebarUv = document.getElementById('sidebar-uv');
-            if (sidebarPv && window._bszPV) {
-              sidebarPv.textContent = window._bszPV;
-              sidebarPv.removeAttribute('aria-hidden');
-            }
-            if (sidebarUv && window._bszUV) {
-              sidebarUv.textContent = window._bszUV;
-              sidebarUv.removeAttribute('aria-hidden');
+            } else {
+              statsEl.classList.remove('visible');
             }
           });
         }
@@ -320,32 +210,25 @@
           uv: parseInt(localStorage.getItem('layyes_uv') || '0')
         };
 
-        // PV 每次页面加载都增加
         stats.pv++;
 
-        // UV 用 sessionStorage 判断是否是新访客
         if (!sessionStorage.getItem('layyes_visited')) {
           stats.uv++;
           sessionStorage.setItem('layyes_visited', '1');
         }
 
-        // 保存数据
         localStorage.setItem('layyes_pv', stats.pv);
         localStorage.setItem('layyes_uv', stats.uv);
 
-        // 设置全局变量供 Docsify 插件使用
         window._bszPV = String(stats.pv);
         window._bszUV = String(stats.uv);
 
-        // 更新 DOM
         updateDisplay();
       }
 
       function updateDisplay() {
         var pv = document.getElementById('busuanzi_value_site_pv');
         var uv = document.getElementById('busuanzi_value_site_uv');
-        var sidebarPv = document.getElementById('sidebar-pv');
-        var sidebarUv = document.getElementById('sidebar-uv');
 
         if (pv) {
           pv.textContent = window._bszPV;
@@ -355,24 +238,14 @@
           uv.textContent = window._bszUV;
           uv.removeAttribute('aria-hidden');
         }
-        if (sidebarPv) {
-          sidebarPv.textContent = window._bszPV;
-          sidebarPv.removeAttribute('aria-hidden');
-        }
-        if (sidebarUv) {
-          sidebarUv.textContent = window._bszUV;
-          sidebarUv.removeAttribute('aria-hidden');
-        }
       }
 
-      // 页面加载时初始化
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initStats);
       } else {
         initStats();
       }
 
-      // Docsify 路由切换时更新显示
       window.addEventListener('hashchange', function() {
         setTimeout(updateDisplay, 100);
       });
