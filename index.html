@@ -302,24 +302,52 @@
       script.src = "https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js";
       script.crossOrigin = "anonymous";
 
+      script.onerror = function() {
+        console.warn('Busuanzi 脚本加载失败，尝试备用方案');
+        loadBusuanziData();
+      };
+
       script.onload = function() {
+        setTimeout(function() {
+          loadBusuanziData();
+        }, 100);
+      };
+
+      function loadBusuanziData() {
         var startTime = Date.now();
         var check = function() {
           var pv = document.getElementById('busuanzi_value_site_pv');
           var uv = document.getElementById('busuanzi_value_site_uv');
           var pvVal = pv && pv.textContent.trim();
           var uvVal = uv && uv.textContent.trim();
+
           if (/^\d+$/.test(pvVal) && /^\d+$/.test(uvVal)) {
             window._bszPV = pvVal;
             window._bszUV = uvVal;
-            pv.removeAttribute('aria-hidden');
-            uv.removeAttribute('aria-hidden');
-          } else if (Date.now() - startTime < 10000) {
+            if (pv) pv.removeAttribute('aria-hidden');
+            if (uv) uv.removeAttribute('aria-hidden');
+            updateSidebarStats();
+          } else if (Date.now() - startTime < 15000) {
             setTimeout(check, 300);
+          } else {
+            console.warn('Busuanzi 数据加载超时');
           }
         };
-        setTimeout(check, 500);
-      };
+        check();
+      }
+
+      function updateSidebarStats() {
+        var sidebarPv = document.getElementById('sidebar-pv');
+        var sidebarUv = document.getElementById('sidebar-uv');
+        if (window._bszPV && sidebarPv) {
+          sidebarPv.textContent = window._bszPV;
+          sidebarPv.removeAttribute('aria-hidden');
+        }
+        if (window._bszUV && sidebarUv) {
+          sidebarUv.textContent = window._bszUV;
+          sidebarUv.removeAttribute('aria-hidden');
+        }
+      }
 
       document.body.appendChild(script);
     })();
