@@ -18,7 +18,4 @@
     <span class="stat-label">👤 访客人数：</span>
     <span id="busuanzi_value_site_uv" class="stat-value" aria-hidden="true">加载中</span>
   </div>
-  <noscript>
-    <div class="stat-row">统计信息需启用 JavaScript</div>
-  </noscript>
 </div>
