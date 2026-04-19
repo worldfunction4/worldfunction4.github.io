@@ -9,4 +9,4 @@
   * [从 0 到 1 的 Git 踩坑与实践：以 C++ Socket 项目为例](study_feel/关于上传到自己的远程仓库)
 
 * **工具安装**
-  * [安装eNSP](安装eNSP)
+  * [安装eNSP](Network/安装eNSP)
