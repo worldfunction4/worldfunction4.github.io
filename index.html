@@ -72,6 +72,21 @@
         padding: 20px;
         margin-top: 10px;
       }
+
+      /* 移动端侧边栏修复：无论正文滚动到哪里，目录都应完整显示 */
+      .sidebar {
+        position: fixed !important;
+        top: 0;
+        bottom: 0;
+        height: 100vh;
+        max-height: 100vh;
+        overflow-y: auto;
+        z-index: 300;
+      }
+
+      .sidebar-toggle {
+        z-index: 301;
+      }
     }
 
     /* 封面访客统计模块 - 左下角固定 */
