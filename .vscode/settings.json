@@ -1,7 +1,0 @@
-{
-    "markdown.validate.enabled": true,
-    "markdown.validate.ignoredLinks": [
-        "Network/安装eNSP",
-        "../assets/eNSP1.png"
-    ]
-}
