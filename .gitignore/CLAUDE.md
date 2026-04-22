@@ -4,7 +4,7 @@
 
 ## 项目概览
 
-泪叶丝 (LAYYES) 的静态博客网站，基于 [Docsify](https://docsify.js.org/) 构建，托管在 GitHub Pages 的 `layyes.com` 上。无需构建步骤 — 所有内容由 Docsify 在客户端渲染。
+泪叶丝 (LAYYES) 的静态博客网站，基于 [Docsify](https://docsify.js.org/) 构建，托管在 GitHub Pages 的 `layyes.com` 上。无需构建步骤 — 所有内容由 Docsify 在客户端渲染。Claude Code (claude.ai/code) 在此仓库中工作时提供指引。
 
 ## 技术栈
 
@@ -56,6 +56,14 @@
 -  **美化外观** - 背景图片、玻璃态效果、深色模式支持
 -  **访问追踪** - 本地 localStorage 统计，隐私友好
 
+## 架构
+
+站点核心逻辑集中在三个文件：
+
+- **`index.html`** — 唯一入口。包含所有自定义 CSS（第 15–138 行）、Docsify 配置对象 `window.$docsify`（第 156–199 行）、访客统计 JS（第 204–253 行）。外部依赖仅 Docsify 本体和 zoom-image 插件，均从 jsDelivr CDN 加载。
+- **`_sidebar.md`** — 定义侧边栏导航树。所有子目录的侧边栏请求通过 `alias: { '/.*/_sidebar.md': '/_sidebar.md' }` 统一指向根目录此文件。
+- **`_coverpage.md`** — 首页封面内容。
+
 ## 本地开发
 
 要在本地预览，使用任意静态文件服务器提供仓库根目录，例如：
@@ -67,9 +75,8 @@ python -m http.server 3000
 ```
 
 没有 build、lint 或 test 命令。
-
-## 项目结构
-
+## 目录结构
+- `.github/workflows/static.yml` — GitHub Actions 配置文件，定义自动部署
 - `index.html` — 入口文件；包含所有 Docsify 配置（`window.$docsify`）、inline CSS 和 busuanzi 访问计数脚本
 - `_coverpage.md` — 封面页内容；包含 busuanzi 计数器 HTML（`#busuanzi_value_site_pv`、`#busuanzi_value_site_uv`）
 - `_sidebar.md` — 全局侧边栏导航（所有子目录通过 `alias` 配置复用）
@@ -82,3 +89,17 @@ python -m http.server 3000
 - **侧边栏别名**：`'/.*/_sidebar.md': '/_sidebar.md'` 强制所有路由使用根侧边栏。
 - **封面可见性**：`index.html` 中的 Docsify 插件在导航回 `/` 时重新显示封面。
 
+## 新增博客内容
+
+1. 在对应目录（`Network/`、`study_feel/` 或根目录）新建 `.md` 文件。
+2. 在 `_sidebar.md` 中添加链接——路径**不带** `.md` 扩展名（Docsify 约定）。
+3. 图片放在 `assets/` 目录下。
+
+## 访客统计
+
+统计模块为纯本地实现，无任何外部分析服务：
+- `localStorage['layyes_pv']` / `localStorage['layyes_uv']` — 持久化的 PV 和 UV 计数。
+- `sessionStorage['layyes_visited']` — 标记当前会话是否已计入 UV。
+- 全局变量 `window._bszPV` 和 `window._bszUV` — 连接初始化脚本与 Docsify 插件。
+- DOM ID `busuanzi_value_site_pv` / `busuanzi_value_site_uv` — 每次路由切换时更新显示。
+- `.cover-stats` 默认 `display:none`，Docsify 的 `doneEach` 钩子仅在路由为 `/` 或 `/README` 时添加 `.visible` 类使其显示。
