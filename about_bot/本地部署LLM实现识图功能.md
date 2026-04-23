@@ -35,7 +35,7 @@ ollama version
 ollama run llava
 ```
 
-> 注：llava 模型较老，推荐使用 `qwen2-vl` 模型，只需将命令中的 `llava` 替换为 `qwen2-vl` 即可。
+> 注：llava 模型较老，推荐使用 `qwen2-vl:7b` 模型，只需将命令中的 `llava` 替换为 `qwen2-vl:7b` 即可。
 
 **测试模型**：
 ```bash
@@ -43,7 +43,7 @@ ollama run llava  # 或 qwen2-vl
 >>> 用中文描述这张图片 图片路径（支持 .jpg、.png 等格式）
 ```
 
-如果能正常输出描述，说明安装成功：
+如果能正常输出描述（虽然内容完全不对，但毕竟是llava），说明安装成功：
 ![alt text](../Network/ollama/模型测试成功.png)
 ### 2. 设置 VPN 连接
 
