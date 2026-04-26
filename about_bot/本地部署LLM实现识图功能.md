@@ -120,7 +120,7 @@ docker logs astrbot | grep -i "localvision"
 ```bash
 docker logs astrbot 2>&1 | grep -A 20 "astrbot_plugin_local_vision"
 ```
-![alt text](../Network/ollama/插件加载失败详情.png)
+![Network/ollama/和其他插件冲突.png](../Network/ollama/和其他插件冲突.png)
 
 **问题分析**：
 1. 配置文件类型错误：AstrBot 不支持 `boolean` 类型，应使用 `bool`
