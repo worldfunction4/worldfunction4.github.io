@@ -11,8 +11,12 @@
 * **工具安装**
   * [安装eNSP](Network/eNSP/安装eNSP)
 
+
 * **计算机网络**
   * [计算机网络概述](study_road/计算机概述)
+  * [数据通信](study_road/计算机概述)
+  * [CSMA/CD](study_road/局域网/CSMA%20CD)
+  * [二进制指数退避算法](study_road/局域网/二进制指数退避算法)
 
 * **eNSP的实验**
   * [基础实验](eNSP实验/基础实验)
