@@ -14,7 +14,7 @@
 
 * **计算机网络**
   * [计算机网络概述](study_road/计算机概述)
-  * [数据通信](study_road/计算机概述)
+  * [数据通信](study_road/数据通信)
   * [CSMA/CD](study_road/局域网/CSMA%20CD)
   * [二进制指数退避算法](study_road/局域网/二进制指数退避算法)
 
