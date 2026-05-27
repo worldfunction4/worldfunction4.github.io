@@ -15,7 +15,7 @@
 * **计算机网络**
   * [计算机网络概述](Network/基础知识/计算机概述)
   * [数据通信](Network/基础知识/数据通信)
-  * [CSMA/CD](Network/基础知识/CSMA CD)
+  * [CSMA/CD](Network/基础知识/CSMA_CD)
   * [二进制指数退避算法](Network/基础知识/二进制指数退避算法)
 
 * **eNSP的实验**
