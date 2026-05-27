@@ -6,17 +6,17 @@
   * [我的交换机配置笔记](Network/交换机)
 
 * **关于自己遇到的问题**
-  * [从 0 到 1 的 Git 踩坑与实践：以 C++ Socket 项目为例](study_feel/关于上传到自己的远程仓库)
+  * [从 0 到 1 的 Git 踩坑与实践：以 C++ Socket 项目为例](杂谈/关于上传到自己的远程仓库)
 
 * **工具安装**
   * [安装eNSP](Network/eNSP/安装eNSP)
 
 
 * **计算机网络**
-  * [计算机网络概述](study_road/计算机概述)
-  * [数据通信](study_road/数据通信)
-  * [CSMA/CD](study_road/局域网/CSMA%20CD)
-  * [二进制指数退避算法](study_road/局域网/二进制指数退避算法)
+  * [计算机网络概述](Network/基础知识/计算机概述)
+  * [数据通信](Network/基础知识/数据通信)
+  * [CSMA/CD](Network/基础知识/CSMA CD)
+  * [二进制指数退避算法](Network/基础知识/二进制指数退避算法)
 
 * **eNSP的实验**
   * [基础实验](eNSP实验/基础实验)
