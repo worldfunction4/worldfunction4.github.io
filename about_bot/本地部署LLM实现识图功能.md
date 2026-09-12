@@ -116,7 +116,7 @@ ollama run llava  # 或 qwen2-vl
 ```bash
 docker logs astrbot | grep -i "localvision"
 ```
-![alt text](../Network/ollama/未成功加载插件.png)
+![alt text](../Network/ollama/插件加载失败详情.png)
 
 获取详细错误信息：
 ```bash
