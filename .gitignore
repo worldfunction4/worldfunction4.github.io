@@ -1,6 +1,5 @@
 # 忽略rules文件夹
 .fitten/
-.github/
 #忽略konwledge文件夹
 knowledge-base/
 
