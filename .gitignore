@@ -1,12 +1,14 @@
-# 忽略rules文件夹
+# AI 配置
 .fitten/
-#忽略konwledge文件夹
-knowledge-base/
-
-# 忽略CLAUDE.md
-CLAUDE.md
-# 忽略.obsidian
 .obsidian/
-# 忽略.keep
 .keep
+CLAUDE.md
 
+# Node / VuePress 构建产物
+node_modules/
+docs/.vuepress/.cache/
+docs/.vuepress/.temp/
+docs/.vuepress/dist/
+
+# 根目录私人笔记库（发布副本在 docs/knowledge-base，已剔除个人内容）
+/knowledge-base/

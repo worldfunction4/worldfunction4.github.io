@@ -1,0 +1,22 @@
+{
+  "name": "layyes-blog",
+  "version": "1.0.0",
+  "description": "泪叶丝的个人博客，分享技术、生活和思考",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
+    "docs:clean-dev": "vuepress dev docs --clean-cache"
+  },
+  "devDependencies": {
+    "@vuepress/bundler-vite": "2.0.0-rc.31",
+    "@vuepress/plugin-feed": "2.0.0-rc.134",
+    "@vuepress/plugin-slimsearch": "2.0.0-rc.134",
+    "sass": "^1.104.1",
+    "vue": "^3.5.42",
+    "vuepress": "2.0.0-rc.31",
+    "vuepress-theme-hope": "2.0.0-rc.109"
+  },
+  "packageManager": "pnpm@11.7.0"
+}
