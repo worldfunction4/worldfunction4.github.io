@@ -1,0 +1,82 @@
+// 主题自动注入的用户样式文件（.vuepress/styles/index.scss）
+
+// ===== 首页 hero 动作按钮（client.ts HomeHeroActions）=====
+.self-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+
+  margin-top: 1.75rem;
+}
+
+.self-hero-action {
+  display: inline-block;
+
+  padding: 0.4rem 1.6rem;
+  border: 2px solid var(--vp-c-accent, #3eaf7c);
+  border-radius: 2rem;
+
+  color: var(--vp-c-accent, #3eaf7c);
+  background: transparent;
+  font-weight: 500;
+
+  transition:
+    color 0.3s,
+    background-color 0.3s;
+
+  &:hover,
+  &:focus-visible {
+    color: #fff;
+    background: var(--vp-c-accent, #3eaf7c);
+    text-decoration: none;
+  }
+
+  &.primary {
+    color: #fff;
+    background: var(--vp-c-accent, #3eaf7c);
+
+    &:hover,
+    &:focus-visible {
+      background: var(--vp-c-accent-hover, var(--vp-c-accent, #3eaf7c));
+    }
+  }
+}
+
+// ===== 首页文章列表标题（client.ts HomeArticlesHead）=====
+.self-articles-title {
+  margin: 2.5rem 0 0;
+  padding-bottom: 0.5rem;
+
+  border-bottom: 2px solid var(--vp-c-accent, #3eaf7c);
+
+  font-size: 1.45rem;
+}
+
+// ===== 本机到访次数徽章（client.ts SelfVisitBadge）=====
+.self-visit-badge {
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+  z-index: 100;
+
+  padding: 0.35rem 0.9rem;
+  border-radius: 1.2rem;
+
+  color: #2c3e50;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(8px) saturate(150%);
+  -webkit-backdrop-filter: blur(8px) saturate(150%);
+
+  font-size: 0.82rem;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+// 深色模式可读性（hope 主题在 <html> 上切换 data-theme）
+html[data-theme="dark"] .self-visit-badge {
+  color: rgba(255, 255, 255, 0.88);
+  background: rgba(32, 33, 36, 0.72);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);
+}
