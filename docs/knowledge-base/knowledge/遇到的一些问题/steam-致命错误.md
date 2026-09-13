@@ -7,6 +7,7 @@ category:
 ---
 打开steam时遇到了以下问题：
 
+<!-- more -->
 ![steam致命错误.png](/knowledge-base/knowledge/遇到的一些问题/imgs/steam致命错误.png)
 
 可以看出是dll库出现了问题，通过搜索：通常是由于 Steam 的界面组件损坏、更新中断或被杀毒软件误拦截导致的（事实上安装的卡巴斯基真的给我弹过这个文件的警告，说是病毒文件，byd气笑了）。

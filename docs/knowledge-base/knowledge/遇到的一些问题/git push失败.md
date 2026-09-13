@@ -7,6 +7,7 @@ category:
 ---
 
 问题：
+<!-- more -->
 ![git失败.png](/knowledge-base/knowledge/遇到的一些问题/imgs/git失败.png)
 
 自查使用相关命令：

@@ -6,6 +6,7 @@ category:
   - agent
 ---
 今天登录codex发现了以下问题：
+<!-- more -->
 ![codex_error.png](/knowledge-base/knowledge/agent/imgs/codex_error.png)
 
 经过查阅和修复，根因为：配置中的 node_repl.exe、node.exe 和 codex.exe 都指向带版本哈希的旧安装目录；其中至少 node_repl.exe 的目录已不存在，因此 Windows 报 os error 3

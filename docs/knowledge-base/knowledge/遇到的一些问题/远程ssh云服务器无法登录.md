@@ -7,6 +7,7 @@ category:
 ---
 今天想用自己的云服务器做一些练习以及实现，但是遇到了一些问题：
 
+<!-- more -->
 ![ssh_error.png](/knowledge-base/knowledge/遇到的一些问题/imgs/ssh_error.png)
 
 结果发现是密钥信息过期了，所以执行了`ssh-keygen -R ip`删除原有信息

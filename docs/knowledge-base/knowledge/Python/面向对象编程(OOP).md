@@ -20,7 +20,7 @@ device2_vendor = "Cisco"
 
 如果设备变成 100 台：
 
-```Pyhton
+```python
 device57_ip
 device57_vendor
 device57_username

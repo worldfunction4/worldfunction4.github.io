@@ -6,6 +6,7 @@ category:
   - C和C++
 ---
 有时候遇到多个任务执行速度会感觉比较慢，比如：
+<!-- more -->
 ```cpp
 #include <iostream>
 

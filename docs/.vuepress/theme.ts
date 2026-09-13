@@ -24,6 +24,12 @@ export default hopeTheme(
     // 仓库链接，导航栏会展示 GitHub 图标
     repo: "worldfunction4/worldfunction4.github.io",
 
+    // "编辑此页"链接（默认开启）：源文件在仓库的 docs/ 目录下，
+    // docsDir 缺省为空会导致 GitHub 编辑链接缺少前缀而 404
+    docsRepo: "worldfunction4/worldfunction4.github.io",
+    docsBranch: "main",
+    docsDir: "docs",
+
     // 按目录结构自动生成分组侧边栏，无需手写清单
     sidebar: "structure",
 
@@ -62,6 +68,18 @@ export default hopeTheme(
       // Feed 生成：输出 atom.xml（hostname 取主题根级的 hostname）
       feed: {
         atom: true,
+        getter: {
+          // VuePress 会把路径里的 `+` slug 成 `_`（如 C和C++ → C和C__），
+          // 但 feed 渲染不走路由解析，这里手工重写含 `+` 的站内链接，避免 RSS 死链
+          content: (page) =>
+            page.content.replace(
+              /href="\/[^"]*"/g,
+              (m) =>
+                m.includes("+")
+                  ? m.split("/").map((seg) => (seg.includes("+") ? seg.replaceAll("+", "_") : seg)).join("/")
+                  : m,
+            ),
+        },
       },
     },
   },
