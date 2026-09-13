@@ -125,10 +125,6 @@
       color: #333;
     }
 
-    .cover-stats .stat-value[aria-hidden="true"] {
-      opacity: 0.5;
-    }
-
     /* 深色模式适配 */
     @media (prefers-color-scheme: dark) {
       .cover-stats {
@@ -151,19 +147,29 @@
       }
     }
   </style>
+
+  <!-- 百度统计：站点访问数据 -->
+  <script>
+    var _hmt = _hmt || [];
+    // docsify 为 hash 路由：关闭自动 PV，改由 doneEach 钩子手动上报，避免漏记路由切换与首页重复计数
+    _hmt.push(['_setAutoPageview', false]);
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?9b88f8eece2f9ad20b8f6621817311ca";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
 </head>
 <body>
   <div id="app">加载中...</div>
 
-  <!-- 封面左下角访客统计 -->
+  <!-- 封面左下角：本机到访次数（仅当前浏览器，站点总量见百度统计） -->
   <div id="cover-stats" class="cover-stats" role="status" aria-live="polite">
     <div class="stat-row">
-      <span class="stat-label">👁️ 访问：</span>
-      <span id="busuanzi_value_site_pv" class="stat-value" aria-hidden="true">--</span>
-    </div>
-    <div class="stat-row">
-      <span class="stat-label">👤 访客：</span>
-      <span id="busuanzi_value_site_uv" class="stat-value" aria-hidden="true">--</span>
+      <span class="stat-label">👁️ 你已到访</span>
+      <span id="self_visit_count" class="stat-value">--</span>
+      <span class="stat-label">次</span>
     </div>
   </div>
 
@@ -188,22 +194,20 @@
         function(hook, vm) {
           // 页面切换时控制封面统计显示
           hook.doneEach(function() {
+            // hash 路由下每次渲染手动上报一次 PV
+            if (window._hmt) {
+              window._hmt.push(['_trackPageview', location.pathname + location.hash]);
+            }
+
             const statsEl = document.getElementById('cover-stats');
             if (!statsEl) return;
 
             const isHome = vm.route.path === '/' || vm.route.path === '/README';
             if (isHome) {
               statsEl.classList.add('visible');
-              // 更新数据
-              const pv = document.getElementById('busuanzi_value_site_pv');
-              const uv = document.getElementById('busuanzi_value_site_uv');
-              if (pv && window._bszPV) {
-                pv.textContent = window._bszPV;
-                pv.removeAttribute('aria-hidden');
-              }
-              if (uv && window._bszUV) {
-                uv.textContent = window._bszUV;
-                uv.removeAttribute('aria-hidden');
+              const count = document.getElementById('self_visit_count');
+              if (count && window._layyesSelfVisits) {
+                count.textContent = window._layyesSelfVisits;
               }
             } else {
               statsEl.classList.remove('visible');
@@ -218,53 +222,24 @@
   <script defer src="https://cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
 
   <script>
-    // 简单的本地访问统计
+    // 本机到访计数：仅反映当前浏览器的到访次数
     (function() {
-      function initStats() {
-        var stats = {
-          pv: parseInt(localStorage.getItem('layyes_pv') || '0'),
-          uv: parseInt(localStorage.getItem('layyes_uv') || '0')
-        };
+      function initSelfVisits() {
+        var n = parseInt(localStorage.getItem('layyes_self_visits') || '0', 10) + 1;
+        localStorage.setItem('layyes_self_visits', String(n));
+        window._layyesSelfVisits = String(n);
 
-        stats.pv++;
-
-        if (!sessionStorage.getItem('layyes_visited')) {
-          stats.uv++;
-          sessionStorage.setItem('layyes_visited', '1');
-        }
-
-        localStorage.setItem('layyes_pv', stats.pv);
-        localStorage.setItem('layyes_uv', stats.uv);
-
-        window._bszPV = String(stats.pv);
-        window._bszUV = String(stats.uv);
-
-        updateDisplay();
-      }
-
-      function updateDisplay() {
-        var pv = document.getElementById('busuanzi_value_site_pv');
-        var uv = document.getElementById('busuanzi_value_site_uv');
-
-        if (pv) {
-          pv.textContent = window._bszPV;
-          pv.removeAttribute('aria-hidden');
-        }
-        if (uv) {
-          uv.textContent = window._bszUV;
-          uv.removeAttribute('aria-hidden');
+        var el = document.getElementById('self_visit_count');
+        if (el) {
+          el.textContent = window._layyesSelfVisits;
         }
       }
 
       if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initStats);
+        document.addEventListener('DOMContentLoaded', initSelfVisits);
       } else {
-        initStats();
+        initSelfVisits();
       }
-
-      window.addEventListener('hashchange', function() {
-        setTimeout(updateDisplay, 100);
-      });
     })();
   </script>
 </body>
