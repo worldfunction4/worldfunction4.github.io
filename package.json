@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs",
+    "docs:build": "node --stack-size=8000 ./node_modules/vuepress/bin/vuepress.js build docs",
     "docs:clean-dev": "vuepress dev docs --clean-cache"
   },
   "devDependencies": {
