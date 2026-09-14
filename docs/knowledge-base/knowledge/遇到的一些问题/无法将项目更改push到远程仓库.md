@@ -6,7 +6,14 @@ category:
   - 遇到的一些问题
 ---
 今天在对自己的项目进行优化后照常进行更新，结果出现了以下的问题：
-![Pasted image 20260602203635.png](/knowledge-base/photos/question/Pasted%20image%2020260602203635.png)
+
+```mermaid
+flowchart TD
+  A["git push 卡住超时"] --> B["remote 是 HTTPS"]
+  B --> C{"GitHub 已禁用密码"}
+  C --> D["方案 A PAT"]
+  C --> E["方案 B SSH"]
+```
 
 经过对claude的询问，它告诉我：`git push` 一直卡住超时，原因是**认证方式不对**。你的 remote 是 HTTPS 格式（`https://github.com/...`），每次 push 都需要用户名密码。但 GitHub 从 2021 年起已经**禁止密码登录**，必须用 Personal Access Token (PAT) 或 SSH key。你的终端弹出密码框 → 你输入 GitHub 密码 → GitHub 拒绝 → 看起来就像"无法执行"。
 
@@ -47,10 +54,18 @@ git push
 
 然后我选择了方案A，你猜怎么着:
 
-![Pasted image 20260602204232.png](/knowledge-base/photos/question/Pasted%20image%2020260602204232.png)
+```mermaid
+flowchart LR
+  A[准备用 PAT] --> B[其实已经能 push]
+  B --> C["AI 的认证失败判断不一定对"]
+```
 
 是的我还没开始就成功了，事实证明AI说的不一定也是正确的，我去问它时它居然说...
 
-![Pasted image 20260602204330.png](/knowledge-base/photos/question/Pasted%20image%2020260602204330.png)
+```mermaid
+flowchart TD
+  Q[追问刚才为什么失败] --> A[模型改口圆场]
+```
+
 我： **？**
 

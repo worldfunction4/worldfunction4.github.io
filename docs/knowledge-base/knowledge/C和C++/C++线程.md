@@ -31,8 +31,16 @@ int main() {
 	std::cout << "任务结束";
 }
 ```
-运行结果如下：
-![Pasted image 20260609101942.png](/knowledge-base/photos/c++/Pasted%20image%2020260609101942.png)
+运行结果是串行的：`work` 先把 10 天打完，主线程的“执行任务”才开始。
+
+```mermaid
+sequenceDiagram
+  participant Main as 主线程
+  Main->>Main: work(0) 打印 10 天
+  Main->>Main: 再打印 10 次执行任务
+  Main->>Main: 任务结束
+```
+
 这么看第一个任务执行完才执行第二个任务是否有点太慢了？所以需要多线程让两个任务同时进行
 需要以下预处理头文件：`#include <thread>`
 然后代码如下：
@@ -65,8 +73,19 @@ int main() {
 	t.join();//此为回收线程
 }
 ```
-运行如下：
-![Pasted image 20260609102250.png](/knowledge-base/photos/c++/Pasted%20image%2020260609102250.png)
+运行如下，两条线叠在一起写 `cout`，输出会交叉：
+
+```mermaid
+sequenceDiagram
+  participant T as 子线程 t
+  participant M as 主线程
+  participant Out as cout
+  T->>Out: 今天是第1
+  M->>Out: 今天是第1天，继续努力
+  T->>Out: 天，继续努力
+  Note over Out: 共享资源没有锁，字会缠在一起
+```
+
 可以看到现在是可以进行多任务了，但是似乎运行结果有点问题，经过搜索发现这是因为在多线程编程中，控制台屏幕（也就是 `std::cout`）是一个**共享资源** 。 当多个线程同时向 `std::cout` 写入数据时，如果没有任何同步机制，它们的输出就会交织在一起，就像多个人同时拿着同一个话筒说话一样，导致最终的字句重叠、错乱。这种现象被称为数据竞争（Data Race）或输出混乱。当子线程刚打印完 `"今天是第1"`，还没来得及打印后面的内容和换行符 `\n` 时，主线程突然抢到了 CPU 的执行权，也往控制台打印了 `"今天是第1天，继续努力\n"`。这就导致两个线程的输出**混杂在了一起**。
 至于如何避免，那就需要[互斥锁](/knowledge-base/knowledge/C和C++/互斥锁.md)了，现在先看看其他方法。
 ## 其他方法

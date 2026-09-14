@@ -14,7 +14,16 @@ SUID 的本质改变了这一逻辑：
 
 当某个可执行文件被赋予了 SUID 位后，无论**谁**来运行这个程序，该程序在运行期间所产生的进程，其 **EUID 都会被强制设置为该文件所有者（Owner）的 ID**，而不是运行者的 ID。
 
-![提权.png](/knowledge-base/knowledge/Linux/imgs/提权.png)
+```mermaid
+sequenceDiagram
+  actor U as 普通用户
+  participant P as passwd 带 SUID
+  participant S as /etc/shadow
+  U->>P: 运行 passwd
+  Note over P: EUID 切成 root
+  P->>S: 读写密码哈希
+  P-->>U: 退出后特权消失
+```
 
 举个例子吧：修改密码的 `/usr/bin/passwd`
 

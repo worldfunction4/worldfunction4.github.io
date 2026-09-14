@@ -23,7 +23,14 @@ category:
 
 ## 工作流程
 
-用户发图 → 云服务器 AstrBot → Tailscale VPN → 本地电脑 → 显卡加速识图 → 返回结果
+```mermaid
+flowchart LR
+  U["用户发图"] --> S["云服务器 AstrBot"]
+  S --> V["Tailscale VPN"]
+  V --> L["本地电脑"]
+  L --> G["显卡加速识图"]
+  G --> S
+```
 
 ## 实现步骤
 
@@ -52,7 +59,15 @@ ollama run llava  # 或 qwen2-vl
 ```
 
 如果能正常输出描述（虽然内容完全不对，但毕竟是llava），说明安装成功：
-![alt text](../Network/ollama/模型测试成功.png)
+
+```mermaid
+sequenceDiagram
+  participant You as 本地终端
+  participant Ollama
+  You->>Ollama: ollama run llava
+  You->>Ollama: 用中文描述这张图片 + 路径
+  Ollama-->>You: 输出描述 安装成功
+```
 ### 2. 设置 VPN 连接
 
 为了让云服务器访问本地电脑上的模型，需要设置 VPN 连接。这里使用 Tailscale，安装和配置都非常简单。
@@ -107,8 +122,11 @@ ollama run llava  # 或 qwen2-vl
    ```
 
    应该返回：`{"status":"healthy","model":"llava"}`
-   
-   ![alt text](../Network/ollama/测试服务.png)
+
+```mermaid
+flowchart LR
+  curl["curl localhost:8765/health"] --> ok["status healthy / model llava"]
+```
 
 ### 4. 部署 AstrBot 插件
 
@@ -122,37 +140,42 @@ ollama run llava  # 或 qwen2-vl
 ```bash
 docker logs astrbot | grep -i "localvision"
 ```
-![alt text](../Network/ollama/插件加载失败详情.png)
 
 获取详细错误信息：
 ```bash
 docker logs astrbot 2>&1 | grep -A 20 "astrbot_plugin_local_vision"
 ```
-![Network/ollama/和其他插件冲突.png](../Network/ollama/和其他插件冲突.png)
 
 **问题分析**：
 1. 配置文件类型错误：AstrBot 不支持 `boolean` 类型，应使用 `bool`
 2. 修改配置后出现新问题：插件初始化时访问 `self.config` 出错，因为继承的是 `star.Star`，配置访问方式不对
 3. 与 `image_analyzer` 插件冲突，需要先关闭该插件
 
-![alt text](../Network/ollama/新问题.png)
-![alt text](../Network/ollama/和其他插件冲突.png)
+```mermaid
+flowchart TD
+  A[插件未加载] --> B["配置类型写成 boolean 应改 bool"]
+  B --> C["self.config 访问方式不对 基类是 star.Star"]
+  C --> D["与 image_analyzer 冲突 先关掉它"]
+  D --> E[docker restart astrbot]
+```
 
 **重启 AstrBot 容器**：
 ```bash
 docker restart astrbot
 ```
 
-成功加载插件：
-![alt text](../Network/ollama/成功安装.png)
+成功加载插件后配置：
 
-**配置插件**：
+```mermaid
+flowchart LR
+  UI["AstrBot WebUI :6185"] --> P[本地图片识别]
+  P --> URL["local_vision_api_url"]
+  URL --> API["http://Tailscale_IP:8765/analyze"]
+```
+
 - 在 AstrBot WebUI（端口 6185）中找到"本地图片识别"插件
 - 修改 `local_vision_api_url` 为：`http://你的本地电脑Tailscale_IP:8765/analyze`
 - 例如：`http://100.101.102.103:8765/analyze`
-
-配置完成后即可测试：
-![alt text](../Network/ollama/服务器.png)
 
 ## 常见问题排查
 
@@ -193,7 +216,12 @@ docker restart astrbot
    curl http://100.116.59.47:8765/health
    ```
 
-![alt text](../Network/ollama/end.png)
+```mermaid
+flowchart TD
+  A{"服务器能否访问 8765?"} -->|"能 ping 不能 curl"| B["开 Windows 入站规则 TCP 8765"]
+  B --> C["curl health 返回 healthy"]
+  C --> D["bot 识图可用"]
+```
 
 配置完成，bot 即可正常使用识图功能！
 

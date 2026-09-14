@@ -8,7 +8,14 @@ category:
 
 问题：
 <!-- more -->
-![git失败.png](/knowledge-base/knowledge/遇到的一些问题/imgs/git失败.png)
+
+```mermaid
+flowchart TD
+  A["git push 失败"] --> B{"本地配置是否正常?"}
+  B -->|status 干净 且 ahead 5| C[不是仓库配置问题]
+  C --> D["代理 / TUN 干扰 HTTPS"]
+  D --> E["临时 unset http.proxy https.proxy"]
+```
 
 自查使用相关命令：
 ```

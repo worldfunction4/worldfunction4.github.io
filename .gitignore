@@ -10,5 +10,6 @@ docs/.vuepress/.cache/
 docs/.vuepress/.temp/
 docs/.vuepress/dist/
 
-# 根目录私人笔记库（发布副本在 docs/knowledge-base，已剔除个人内容）
+# 私人笔记库已迁到 D:\layyes\boke\knowledge-base（独立仓库 Mystudy-note）
+# 博客发布副本仍在 docs/knowledge-base，站点路由仍是 /knowledge-base/
 /knowledge-base/

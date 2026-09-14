@@ -56,7 +56,13 @@ Connection failed [IP: 198.18.0.90 80]
 
 因为某些原因还是选择2：
 
-![clash配置.png](/knowledge-base/knowledge/遇到的一些问题/imgs/clash配置.png)
+```mermaid
+flowchart TD
+  A["apt 超时 198.18.0.90"] --> B["Clash TUN"]
+  B --> C{"DNS 覆写开了吗?"}
+  C -->|否| D["域名解析超时"]
+  C -->|是| E["走代理正常装包"]
+```
 
 看来是忘记开DNS覆写了...
 顺便记一下不开会怎样：**TUN 模式依赖 Clash 接管 DNS 解析，否则域名解析会超时**

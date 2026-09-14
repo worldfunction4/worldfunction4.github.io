@@ -164,7 +164,18 @@ print("\n".join(d_res)) # 这行代码的作用将差异化的结果列表d_res�
 print("\n======")
 ```
 输出:
-![Pasted image 20260510114210.png](/knowledge-base/photos/python/Pasted%20image%2020260510114210.png)
+
+```mermaid
+flowchart TD
+  subgraph Differ["Differ.compare 标记"]
+    a["空格 第一行 相同"]
+    b["减号 第二行 删除"]
+    c["加号 第二行修改 新增"]
+    d["空格 第三行 相同"]
+    e["减号 第四行 删除"]
+    f["加号 第五行 新增"]
+  end
+```
 
 
 ### 2.计算序列相似度和最长公共子串
@@ -187,7 +198,13 @@ print(f"a和b字符串的公共子串:a[{match.a}] b[{match.b}] 长度{match.siz
 print(f"a和b字符串的公共子串内容:{a[match.a:match.a+match.size]}")
 ```
 输出：
-![Pasted image 20260510114649.png](/knowledge-base/photos/python/Pasted%20image%2020260510114649.png)
+
+```mermaid
+flowchart LR
+  A["layyes is a student"] --> R["ratio 相似度"]
+  B["leiyesi is a student"] --> R
+  R --> M["最长公共子串 is a student"]
+```
 
 ### 3. 生成统一格式差异（unified_diff）
 
@@ -204,7 +221,11 @@ print("统一格式差异报告:")
 print("\n".join(diff))
 ```
 输出：
-![Pasted image 20260510115042.png](/knowledge-base/photos/python/Pasted%20image%2020260510115042.png)
+
+```mermaid
+flowchart TB
+  old["old.py return a+b"] -->|unified_diff| new["new.py reutrn a+b 并新增 add2"]
+```
 
 ### 4. HTML差异报告（HtmlDiff） 
 ```Python
@@ -229,11 +250,13 @@ with open("example_html_different_new_new.html", "w", encoding="utf-8") as f:
     f.write(html_context)
     print("结束")
 ```
-输出：
-![Pasted image 20260510115253.png](/knowledge-base/photos/python/Pasted%20image%2020260510115253.png)
+输出：浏览器打开生成的 HTML，左右对照旧版本 / 新版本。
 
 关于这个我尝试了三种写法生成了三种html文件，上述只是最终版本，其他两种分别有以下差异：
-- 用来测试的两个字符串不采用splitlines()方法:
-		![Pasted image 20260510115604.png](/knowledge-base/photos/python/Pasted%20image%2020260510115604.png)
-- 两个字符串以列表形式存储：
-		![Pasted image 20260510115717.png](/knowledge-base/photos/python/Pasted%20image%2020260510115717.png)
+
+```mermaid
+flowchart TD
+  A[输入形态] --> B["splitlines 按行对比 正确"]
+  A --> C["整段字符串 变成一整行对比"]
+  A --> D["列表 按元素对比"]
+```

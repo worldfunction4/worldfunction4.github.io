@@ -52,9 +52,15 @@ int main() {
 
 ## 字符串插入与删除
 
-对string字符串进行插入和删除字符的操作
+对 string 字符串进行插入和删除字符的操作。`insert` 把新片段塞进指定下标，后面的字符往后挪；`erase` 则从指定位置抠掉一段。
 
-![Pasted image 20260603152445.png](/knowledge-base/photos/c++/Pasted%20image%2020260603152445.png)
+```mermaid
+flowchart LR
+  A["hello,layyes"] --> B["insert(1, yes)"]
+  B --> C["hyesello,layyes"]
+  C --> D["erase 指定位置"]
+  D --> E["剩下的字符往前收"]
+```
 
 ```cpp
 # include <iostream>

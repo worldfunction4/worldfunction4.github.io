@@ -105,5 +105,16 @@ for i in range(len(first)):      # 最多 M 次 (M = 第一个字符串长度)
         
     - `n + n/2 + n/4 + ... + 1 ≈ 2n` → O(n)（几何级数）
 
+常见复杂度随 n 变大时的走势：
 
-![时间复杂度.png](/knowledge-base/knowledge/数据结构与算法/imgs/时间复杂度.png)
+```mermaid
+xychart-beta
+  title "常见时间复杂度增长"
+  x-axis [1, 2, 4, 8, 16]
+  y-axis "相对操作次数" 0 --> 256
+  line [1, 1, 1, 1, 1]
+  line [1, 2, 4, 8, 16]
+  line [1, 4, 16, 64, 256]
+```
+
+从下到上大致对应 O(1)、O(n)、O(n²)。对数级夹在 O(1) 和 O(n) 之间，O(n log n) 夹在 O(n) 和 O(n²) 之间。

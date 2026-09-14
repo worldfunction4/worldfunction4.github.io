@@ -7,7 +7,14 @@ category:
 ---
 今天登录codex发现了以下问题：
 <!-- more -->
-![codex_error.png](/knowledge-base/knowledge/agent/imgs/codex_error.png)
+
+```mermaid
+flowchart TD
+  A["os error 3 找不到文件"] --> B["config.toml 里的路径带旧版本哈希"]
+  B --> C["node_repl.exe / node.exe / codex.exe"]
+  C --> D[目录已不存在]
+  D --> E[改成当前安装路径]
+```
 
 经过查阅和修复，根因为：配置中的 node_repl.exe、node.exe 和 codex.exe 都指向带版本哈希的旧安装目录；其中至少 node_repl.exe 的目录已不存在，因此 Windows 报 os error 3
 

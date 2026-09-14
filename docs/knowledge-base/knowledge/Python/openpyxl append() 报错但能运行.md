@@ -33,7 +33,15 @@ for device in devices:
         print(device)
 ```
 看起来似乎一切正常，是吧？
-![Pasted image 20260513095409.png](/knowledge-base/photos/Pasted%20image%2020260513095409.png)
+
+```mermaid
+flowchart TD
+  A["wb.active"] --> B{"类型检查器"}
+  B -->|"Worksheet 或 None"| C["sheet.append 报红"]
+  A --> D["运行时是 Worksheet"]
+  D --> E["append 能跑"]
+```
+
 但是还是有个小红线，但是运行却又能正常运行，这是为什么？
 
 ### 问题本质

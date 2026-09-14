@@ -288,6 +288,12 @@ sudo killall -9 mysqld
 
 但是重新启动mysql后还是报一样的错误，这时候我意识到自己可能是把window侧的mysql服务开启，这时候**Windows 主机已经运行了一个 MySQL 实例（或者占用着 3306 端口）**。由于 WSL2 默认和 Windows 共享端口映射，Windows 侧占用的 3306 会导致 Linux 侧的 MySQL 无法绑定该端口，并在启动瞬间直接崩溃退出。
 
-![wsl-mysql.png](/knowledge-base/knowledge/遇到的一些问题/imgs/wsl-mysql.png)
+```mermaid
+flowchart TD
+  A["WSL mysqld Address already in use"] --> B["killall mysqld"]
+  B --> C["还是占 3306"]
+  C --> D["Windows 侧 MySQL 也在听 3306"]
+  D --> E["关掉 Windows MySQL 服务"]
+```
 
 问题解决。

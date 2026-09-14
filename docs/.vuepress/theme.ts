@@ -1,5 +1,7 @@
 import { hopeTheme } from "vuepress-theme-hope";
 
+import { Navbar } from "./navbar.js";
+
 export default hopeTheme(
   {
     // 站点部署域名（feed / seo / sitemap 会用到）
@@ -10,16 +12,11 @@ export default hopeTheme(
       url: "https://layyes.com",
     },
 
+    favicon: "/avatar.jpg",
+    logo: "/avatar.jpg",
+
     // 导航栏（GitHub 图标由下方 repo 选项自动生成）
-    navbar: [
-      { text: "首页", link: "/" },
-      { text: "随笔", link: "/start.html" },
-      { text: "知识库", link: "/knowledge-base/" },
-      { text: "网络技术", link: "/Network/" },
-      { text: "分类", link: "/category/" },
-      { text: "标签", link: "/tag/" },
-      { text: "时间轴", link: "/timeline/" },
-    ],
+    navbar: Navbar,
 
     // 仓库链接，导航栏会展示 GitHub 图标
     repo: "worldfunction4/worldfunction4.github.io",
@@ -36,6 +33,14 @@ export default hopeTheme(
     // 深色模式："switch" 在浅色 / 深色 / 自动之间切换（默认行为）
     darkmode: "switch",
 
+    // 外观面板中的主题色选择器、全屏按钮（对齐参考站顶栏）
+    themeColor: true,
+    fullscreen: true,
+
+    markdown: {
+      mermaid: true,
+    },
+
     // 页脚
     footer: "© 2026 泪叶丝",
     displayFooter: true,
@@ -46,9 +51,12 @@ export default hopeTheme(
     // 博主信息与文章列表选项
     blog: {
       name: "泪叶丝",
+      avatar: "/avatar.jpg",
       description: "探索网络技术, 记录生活点滴, 分享有趣思考",
+      intro: "/start.html",
       medias: {
         GitHub: "https://github.com/worldfunction4/worldfunction4.github.io",
+        Rss: "https://layyes.com/atom.xml",
       },
       // 首页文章列表每页数量（默认 10）
       articlePerPage: 10,
@@ -59,6 +67,10 @@ export default hopeTheme(
     plugins: {
       // 博客功能：开启后自动生成 /category/ /tag/ /timeline/ /article/ 聚合页
       blog: true,
+
+      icon: {
+        assets: "fontawesome-with-brands",
+      },
 
       // 搜索插件，默认热键即 Ctrl+K（以及 Ctrl+/），indexContent 索引正文内容
       slimsearch: {
@@ -84,8 +96,8 @@ export default hopeTheme(
     },
   },
   {
-    // 允许在 client.ts 中覆盖布局并通过
-    // "vuepress-theme-hope/components/*" 子路径导入主题组件
+    // 允许在 layouts 中覆盖 Blog 并通过
+    // "vuepress-theme-hope/blog" 子路径导入主题组件
     custom: true,
   },
 );

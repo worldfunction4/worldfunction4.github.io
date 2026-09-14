@@ -135,38 +135,58 @@ Cost = 参考带宽(100Mbps) / 接口实际带宽(bps)
 
 ## 实操：抓包OSPF的七种状态
 
-为了更好理解OSPF的[七种状态](/knowledge-base/knowledge/计算机网络/OSPF.md#^b4473b)，我在eNSP上进行了抓包实验。
+为了更好理解OSPF的[七种状态](/knowledge-base/knowledge/计算机网络/OSPF.md#^b4473b)，我在eNSP上进行了抓包实验。邻居建立可以画成这条状态链：
 
-![整体截图.png](/knowledge-base/photos/OSPF/OSPF七种状态抓包实验/整体截图.png)
+```mermaid
+stateDiagram-v2
+  [*] --> Down
+  Down --> Init: 收到 Hello
+  Init --> TwoWay: Hello 里出现自己的 Router ID
+  TwoWay --> ExStart: 需要建立邻接
+  ExStart --> Exchange: Master/Slave 选举完成
+  Exchange --> Loading: 目录交换完成
+  Loading --> Full: LSDB 同步完成
+```
 
-可以看到，这是一个非常完整的OSPF邻居建立过程的抓包。
+两台路由器 `10.0.0.1` / `10.0.0.2` 的报文顺序如下：
 
-![Init.png](/knowledge-base/photos/OSPF/OSPF七种状态抓包实验/Init.png)
+```mermaid
+sequenceDiagram
+  participant A as 10.0.0.1
+  participant B as 10.0.0.2
+  Note over A,B: Down 到 Init：组播 Hello
+  A->>B: Hello 224.0.0.5
+  B->>A: Hello
+  Note over A,B: 单播前先 ARP
+  B->>A: ARP Request 谁是 10.0.0.1
+  A->>B: ARP Reply
+  Note over A,B: ExStart 到 Exchange：DD
+  A->>B: DD 空报文 比 Router ID
+  B->>A: DD 空报文
+  A->>B: DD 带 LSA 头部
+  B->>A: DD 带 LSA 头部
+  Note over A,B: Loading：要明细
+  A->>B: LS Request
+  B->>A: LS Update
+  A->>B: LS Ack
+  Note over A,B: Full 之后改回 Hello 心跳
+  A->>B: Hello 约 10s
+```
 
-下面就文字描述吧，这样太累。
+可以看到，这是一个非常完整的OSPF邻居建立过程。
 
-![ARP解析.png](/knowledge-base/photos/OSPF/OSPF七种状态抓包实验/ARP解析.png)
 **Packet 10 - 13**：**选举主从与目录交换(ExStart -> Exchange 状态)**。OSPF 接下来的交互需要用到**单播**（Unicast），而 `10.0.0.2` 只知道对方的 IP 是 `10.0.0.1`，不知道 MAC 地址。所以它发起了 ARP Request（谁是 10.0.0.1？），随后 `10.0.0.1` 回复了 ARP Reply（我就是，我的 MAC 是...）。有了 MAC 地址，单播才能顺利进行。
 
-
-![ExStart到Exchange 状态.png](/knowledge-base/photos/OSPF/OSPF七种状态抓包实验/ExStart到Exchange%20状态.png)
 **Packet 14 - 16**：这是 **DB Description (DD 报文)**。
 - 刚开始（ExStart 状态），它们发送空的 DD 报文，只是为了比较 Router ID，选举出 Master（主）和 Slave（从），由 Master 来主导后续的序列号。
 - 选举完成后（进入 Exchange 状态），它们开始互相发送带有 LSA 头部信息（相当于路由目录的摘要）的 DD 报文，告诉对方“我这里有哪些路由信息”。
 
-
-![Loading状态.png](/knowledge-base/photos/OSPF/OSPF七种状态抓包实验/Loading状态.png)
 **Packet 17 - 25**：**索要明细与更新同步 (Loading 状态)**。双方对比了目录后，发现对方有自己没有的路由，于是进入 **Loading（加载）状态**：
 - **LS Request (LSR)** (如 Pkt 18, 21)：向对方索要特定链路状态的详细信息。
 - **LS Update (LSU)** (如 Pkt 17, 20, 23)：收到请求后，把详细的路由更新信息打包发送给对方。这里面包含的就是真正的 LSA 明细。
 
-
-
-![Full.png](/knowledge-base/photos/OSPF/OSPF七种状态抓包实验/Full.png)
 **Packet 26 - 28**：**确认与建立完全邻接 (Full 状态)**。
 - LS Acknowledge (LSAck)：收到对方的 LSU 更新后，必须回复一个确认包，告诉对方“我收到了”。
 - 当所有的请求、更新和确认都完成后，双方的链路状态数据库（LSDB）达到完全同步。此时，OSPF 邻居状态正式进入最终的 **Full 状态**。
 
-
-![重新开始发送hello报.png](/knowledge-base/photos/OSPF/OSPF七种状态抓包实验/重新开始发送hello报.png)
 **Packet 29 之后**：它们又恢复了发送 **Hello 报文**。在 Full 状态下，它们默认每 10 秒（广播网络）发送一次 Hello，仅仅是为了告诉对方“我还活着，路由没断”，作为心跳保活机制。

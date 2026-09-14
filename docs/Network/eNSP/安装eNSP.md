@@ -72,10 +72,25 @@ eNSP（Huawei Enterprise Network Simulation Platform）是华为公司开发的�
 
 <div id="use-ensp"></div>
 ## 使用eNSP
-打开右上角菜单-工具-注册设备
-![eNSP注册](../../assets/eNSP1.png)
-全部勾选，点击注册设备
-![eNSP注册设备](../../assets/eNSP2.png)
+打开右上角菜单 → 工具 → 注册设备：
+
+```mermaid
+flowchart LR
+  A[菜单] --> B[工具]
+  B --> C[注册设备]
+```
+
+全部勾选后点注册：
+
+```mermaid
+flowchart TD
+  A["勾选 AR_Base"] --> B["勾选 AC_Base"]
+  B --> C["勾选 AP_Base"]
+  C --> D["勾选 AD_Base"]
+  D --> E["勾选 SAP_Base"]
+  E --> F[注册]
+```
+
 然后随便从左边的设备栏拖一个路由器到中间的画布上，点击右键-启动，测试是否可以启动，如果可以启动，说明安装成功了。
 
 <div id="problems"></div>
