@@ -5,7 +5,7 @@ import theme from "./theme.js";
 
 export default defineUserConfig({
   lang: "zh-CN",
-  title: "泪叶丝的个人博客",
+  title: "泪叶丝",
   description: "探索网络技术, 记录生活点滴, 分享有趣思考",
 
   // 部署在 https://layyes.com 根路径

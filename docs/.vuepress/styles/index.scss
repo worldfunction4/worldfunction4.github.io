@@ -1,21 +1,66 @@
 // 主题自动注入的用户样式文件（.vuepress/styles/index.scss）
 
-.vp-blog-hero-image {
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.28);
+.vp-blog-hero {
+  // 标题落在左侧空区，人物留给右侧
+  align-items: flex-start;
+  justify-content: center;
+  padding-inline: clamp(1.25rem, 7vw, 4.5rem);
+  min-height: 28rem;
 }
 
-// 背景图是浅色插画，加深遮罩让横幅标题保持可读
+.vp-blog-hero-image {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.28);
+  align-self: flex-start;
+}
+
+.vp-blog-hero-info {
+  text-align: left;
+  max-width: min(28rem, 100%);
+}
+
+// 左侧加深保可读，右侧留白让插画露出来
 .vp-blog-hero .vp-blog-mask::after {
   background: linear-gradient(
-    180deg,
-    rgba(16, 18, 22, 0.28) 0%,
-    rgba(16, 18, 22, 0.52) 100%
+    105deg,
+    rgba(10, 12, 16, 0.78) 0%,
+    rgba(10, 12, 16, 0.52) 38%,
+    rgba(10, 12, 16, 0.2) 68%,
+    rgba(10, 12, 16, 0.32) 100%
   );
 }
 
 .vp-blog-hero-title,
 .vp-blog-hero-description {
-  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.55);
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.6);
+}
+
+@media (max-width: 719px) {
+  .vp-blog-hero {
+    align-items: center;
+    min-height: 22rem;
+    padding-inline: 1.25rem;
+  }
+
+  .vp-blog-hero .vp-blog-mask {
+    background-position: 62% 28% !important;
+  }
+
+  .vp-blog-hero-image {
+    align-self: center;
+  }
+
+  .vp-blog-hero-info {
+    text-align: center;
+  }
+
+  // 窄屏仍以人物为主，遮罩均匀一点
+  .vp-blog-hero .vp-blog-mask::after {
+    background: linear-gradient(
+      180deg,
+      rgba(10, 12, 16, 0.4) 0%,
+      rgba(10, 12, 16, 0.62) 100%
+    );
+  }
 }
 
 .vp-blogger-avatar {
