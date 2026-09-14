@@ -2,8 +2,8 @@
 title: 被低估的 Windows Powershell
 date: 2026-08-19
 category:
-  - 知识库
   - 计算机网络
+tag:
   - 网络安全
 ---
 # 被低估的 Windows Powershell

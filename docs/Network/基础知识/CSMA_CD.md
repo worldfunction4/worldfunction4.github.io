@@ -2,8 +2,10 @@
 title: CSMA/CD
 date: 2026-05-27
 category:
-  - 网络技术
+  - 计算机网络
+tag:
   - 基础知识
+  - CSMA/CD
 ---
 # CSMA/CD
 IEEE.802.3

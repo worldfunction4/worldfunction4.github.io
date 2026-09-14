@@ -2,7 +2,6 @@
 title: ThreadPoolExecutor（线程池执行器）
 date: 2026-08-19
 category:
-  - 知识库
   - Python
 ---
 上次整理了一下[多进程VS多线程](/knowledge-base/knowledge/Python/多进程VS多线程.md)的区别，运用到Python中大概就是如标题所示的模块

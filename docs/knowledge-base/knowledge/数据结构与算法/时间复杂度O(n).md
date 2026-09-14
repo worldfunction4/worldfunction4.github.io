@@ -2,8 +2,7 @@
 title: 时间复杂度 (Time Complexity)
 date: 2026-08-26
 category:
-  - 知识库
-  - 数据结构与算法
+  - 算法
 ---
 # 时间复杂度 (Time Complexity)
 

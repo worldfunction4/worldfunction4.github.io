@@ -2,8 +2,9 @@
 title: ACL
 date: 2026-08-19
 category:
-  - 知识库
   - 计算机网络
+tag:
+  - ACL
 ---
 
 [华为ACL官方文档](https://support.huawei.com/enterprise/zh/doc/EDOC1100086646/16641ba5#ZH-CN_TOPIC_0172957959)

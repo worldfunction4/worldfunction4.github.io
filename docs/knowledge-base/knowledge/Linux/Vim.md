@@ -2,7 +2,6 @@
 title: Vim 键位速查
 date: 2026-08-19
 category:
-  - 知识库
   - Linux
 ---
 给自己写了一个使用vim的键位速查

@@ -2,7 +2,6 @@
 title: 关于
 date: 2026-08-19
 category:
-  - 知识库
   - Python
 ---
 [Python官方文档](https://docs.python.org/zh-cn/3.14/library/difflib.html#sequencematcher-objects)

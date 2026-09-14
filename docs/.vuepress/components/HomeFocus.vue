@@ -5,7 +5,7 @@ const focuses = [
   {
     title: "网络技术研究",
     description: "网络协议、组网配置与排障思路的实战笔记",
-    link: "/category/网络技术/",
+    link: "/category/计算机网络/",
     label: "NET",
   },
   {
@@ -19,6 +19,12 @@ const focuses = [
     description: "eNSP 实验、Linux 与日常排障记录",
     link: "/eNSP实验/基础实验.html",
     label: "LAB",
+  },
+  {
+    title: "AI 专栏",
+    description: "本地模型、Agent 与 AI 编程笔记",
+    link: "/ai/",
+    label: "AI",
   },
 ];
 
@@ -127,7 +133,7 @@ const guides = [
 
 .home-focus-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0.75rem;
 }
 
@@ -265,6 +271,12 @@ const guides = [
 
   > span:last-child {
     color: var(--vp-c-accent);
+  }
+}
+
+@media (max-width: 959px) {
+  .home-focus-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 

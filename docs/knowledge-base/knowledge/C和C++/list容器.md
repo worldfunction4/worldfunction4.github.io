@@ -2,7 +2,6 @@
 title: list容器
 date: 2026-08-19
 category:
-  - 知识库
   - C和C++
 ---
 ## 基本概念

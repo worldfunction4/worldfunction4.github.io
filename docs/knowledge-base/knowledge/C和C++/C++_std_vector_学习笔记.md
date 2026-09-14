@@ -1,8 +1,7 @@
 ---
-title: "C++ std::vector 学习笔记"
+title: C++ std::vector 学习笔记
 date: 2026-08-19
 category:
-  - 知识库
   - C和C++
 ---
 # C++ std::vector 学习笔记

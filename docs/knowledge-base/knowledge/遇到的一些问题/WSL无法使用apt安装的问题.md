@@ -2,8 +2,9 @@
 title: 总结
 date: 2026-08-26
 category:
-  - 知识库
-  - 遇到的一些问题
+  - 踩坑
+tag:
+  - WSL
 ---
 今天我想使用
 ```bash

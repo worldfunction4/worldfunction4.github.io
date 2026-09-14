@@ -2,9 +2,10 @@
 title: CSMA/CD
 date: 2026-08-19
 category:
-  - 知识库
   - 计算机网络
+tag:
   - 局域网
+  - CSMA/CD
 ---
 # CSMA/CD
 IEEE.802.3

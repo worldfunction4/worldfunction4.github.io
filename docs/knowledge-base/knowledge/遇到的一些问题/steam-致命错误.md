@@ -2,8 +2,9 @@
 title: steam-致命错误
 date: 2026-09-12
 category:
-  - 知识库
-  - 遇到的一些问题
+  - 踩坑
+tag:
+  - Steam
 ---
 打开steam时遇到了以下问题：
 

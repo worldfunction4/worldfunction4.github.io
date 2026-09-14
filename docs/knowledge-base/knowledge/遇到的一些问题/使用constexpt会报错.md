@@ -2,8 +2,9 @@
 title: 使用constexpt会报错
 date: 2026-08-19
 category:
-  - 知识库
-  - 遇到的一些问题
+  - 踩坑
+tag:
+  - C和C++
 ---
 今天学习了一下C++11的特性，在进行constexpr的测试时发现了一个问题：**constexpr会报错：E0040：应输入标识符**。
 

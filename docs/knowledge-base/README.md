@@ -1,8 +1,6 @@
 ---
 title: 知识库
 date: 2026-08-19
-category:
-  - 知识库
 article: false
 ---
 # 知识库
@@ -14,7 +12,7 @@ article: false
 ```
 knowledge-base/
 ├── knowledge/              # 笔记主体
-│   ├── agent/              # AI Agent 相关
+│   ├── agent/              # 已并入 AI 专栏，旧路径保留
 │   ├── C和C++/             # C / C++ 语言
 │   ├── Leetcode/           # 算法题解
 │   ├── Linux/              # Linux 基础
@@ -64,7 +62,7 @@ knowledge-base/
 
 ### Python
 
-- [AI编程](knowledge/Python/AI编程.md)
+- [AI编程](knowledge/Python/AI编程.md)（[AI 专栏](/ai/)）
 - [concurrent.futures模块](knowledge/Python/concurrent.futures模块.md)
 - [CPython](knowledge/Python/CPython.md)
 - [difflib库](knowledge/Python/difflib库.md)
@@ -164,6 +162,8 @@ knowledge-base/
 - [如何写健壮的脚本？](knowledge/study_feel/如何写健壮的脚本？.md)
 
 ### AI Agent
+
+相关笔记已收到 [AI 专栏](/ai/)。
 
 - [codex报错](knowledge/agent/codex报错.md)
 

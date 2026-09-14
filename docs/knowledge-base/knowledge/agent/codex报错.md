@@ -2,8 +2,10 @@
 title: codex报错
 date: 2026-08-19
 category:
-  - 知识库
-  - agent
+  - AI
+tag:
+  - Codex
+  - Agent
 ---
 今天登录codex发现了以下问题：
 <!-- more -->

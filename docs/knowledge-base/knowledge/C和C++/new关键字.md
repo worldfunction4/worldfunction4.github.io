@@ -2,7 +2,6 @@
 title: new 关键字（C++）
 date: 2026-08-19
 category:
-  - 知识库
   - C和C++
 ---
 # new 关键字（C++）

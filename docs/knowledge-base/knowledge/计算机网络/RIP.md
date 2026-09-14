@@ -2,8 +2,9 @@
 title: RIP
 date: 2026-08-19
 category:
-  - 知识库
   - 计算机网络
+tag:
+  - RIP
 ---
 RIP（Routing Information Protocol，路由信息协议）是一种**基于距离矢量的内部网关协议(IGP)**，也就是根据**跳数**来度量路由开销，进行路由选择。
 和其他的路由协议相比（比如[OSPF](/knowledge-base/knowledge/计算机网络/OSPF.md)，[ISIS](/knowledge-base/knowledge/计算机网络/ISIS.md)等），RIP协议实现更简单，对带宽，配置和管理要求也更低，但是受到**路由跳数**和**收敛速度**限制，大于15跳就认为网络不可达，所以没办法用在大型网络中。不过由于配置和维护管理比较简单，所以也许仍有应用。

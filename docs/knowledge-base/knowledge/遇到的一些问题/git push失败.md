@@ -2,8 +2,9 @@
 title: git push失败
 date: 2026-09-12
 category:
-  - 知识库
-  - 遇到的一些问题
+  - 踩坑
+tag:
+  - Git
 ---
 
 问题：

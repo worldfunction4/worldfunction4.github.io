@@ -2,7 +2,6 @@
 title: openpyxl append() 报错但能运行
 date: 2026-08-19
 category:
-  - 知识库
   - Python
 ---
 ## 现象

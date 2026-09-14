@@ -2,7 +2,10 @@
 title: 使用本地电脑实现 Astrbot 机器人的识图功能
 date: 2026-04-23
 category:
+  - AI
+tag:
   - AstrBot
+  - Ollama
 ---
 # 使用本地电脑实现 Astrbot 机器人的识图功能
 

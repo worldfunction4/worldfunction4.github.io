@@ -2,7 +2,6 @@
 title: STL
 date: 2026-08-19
 category:
-  - 知识库
   - C和C++
 ---
 STL从广义上分为：容器，算法和迭代器

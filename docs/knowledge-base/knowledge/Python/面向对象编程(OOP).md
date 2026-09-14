@@ -2,7 +2,6 @@
 title: 面向对象编程(OOP)
 date: 2026-08-19
 category:
-  - 知识库
   - Python
 ---
 面向对象编程（Object-Oriented Programming，简称 OOP），一种“组织代码的思维方式”。它会让大型项目更容易维护、更像“搭积木”。

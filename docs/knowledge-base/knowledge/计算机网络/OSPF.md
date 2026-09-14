@@ -2,8 +2,9 @@
 title: OSPF
 date: 2026-08-19
 category:
-  - 知识库
   - 计算机网络
+tag:
+  - OSPF
 ---
 OSPF（Open Shortest Path First， **开放式路径最短优先**）是一种基于链路状态算法的**内部网关协议（[IGP协议](/knowledge-base/knowledge/计算机网络/IGP协议.md)）**，专为大型网络设计。它收敛快、无环路、支持VLSM/CIDR，是目前企业网和数据中心最核心的路由协议。
 

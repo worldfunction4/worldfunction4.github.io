@@ -2,8 +2,9 @@
 title: GIL（全局解释器锁）
 date: 2026-08-19
 category:
-  - 知识库
-  - 专业术语
+  - Python
+tag:
+  - GIL
 ---
 ## 什么是GIL？
 
