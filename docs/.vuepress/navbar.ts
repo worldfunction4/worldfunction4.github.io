@@ -1,23 +1,51 @@
 import { navbar } from "vuepress-theme-hope";
 
 export const Navbar = navbar([
+  { text: "AI", link: "/ai/" },
   {
-    text: "AI",
+    text: "计算机网络",
     children: [
-      { text: "专栏总览", link: "/ai/" },
-      { text: "分类", link: "/category/ai/" },
-      { text: "AI 编程", link: "/knowledge-base/knowledge/Python/AI编程.html" },
-      { text: "AstrBot 识图", link: "/about_bot/本地部署LLM实现识图功能.html" },
+      {
+        text: "基础知识",
+        link: "/knowledge-base/knowledge/计算机网络/基础知识/计算机概述.html",
+      },
+      {
+        text: "协议与设备",
+        link: "/knowledge-base/knowledge/计算机网络/OSPF.html",
+      },
+      { text: "eNSP", link: "/Network/eNSP/安装eNSP.html" },
     ],
   },
-  { text: "计算机网络", link: "/category/计算机网络/" },
-  { text: "C / C++", link: "/category/c和c__/" },
-  { text: "Python", link: "/category/python/" },
-  { text: "Linux", link: "/category/linux/" },
-  { text: "算法", link: "/category/算法/" },
-  { text: "踩坑", link: "/category/踩坑/" },
-  { text: "随笔", link: "/category/随笔/" },
-  { text: "分类", link: "/category/" },
-  { text: "标签", link: "/tag/" },
-  { text: "时间轴", link: "/timeline/" },
+  {
+    text: "语言",
+    children: [
+      { text: "C / C++", link: "/knowledge-base/knowledge/C和C__/" },
+      { text: "Python", link: "/knowledge-base/knowledge/Python/" },
+    ],
+  },
+  {
+    text: "操作系统",
+    children: [{ text: "Linux", link: "/knowledge-base/knowledge/Linux/" }],
+  },
+  {
+    text: "数据结构与算法",
+    children: [
+      {
+        text: "数据结构",
+        link: "/knowledge-base/knowledge/数据结构与算法/",
+      },
+      {
+        text: "算法",
+        link: "/knowledge-base/knowledge/数据结构与算法/时间复杂度O(n).html",
+      },
+      { text: "Leetcode", link: "/knowledge-base/knowledge/Leetcode/" },
+    ],
+  },
+  {
+    text: "笔记",
+    children: [
+      { text: "踩坑", link: "/knowledge-base/knowledge/遇到的一些问题/" },
+      { text: "随笔", link: "/杂谈/关于上传到自己的远程仓库.html" },
+    ],
+  },
 ]);

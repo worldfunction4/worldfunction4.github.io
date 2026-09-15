@@ -1,6 +1,7 @@
 import { hopeTheme } from "vuepress-theme-hope";
 
 import { Navbar } from "./navbar.js";
+import { Sidebar } from "./sidebar.js";
 
 export default hopeTheme(
   {
@@ -27,8 +28,13 @@ export default hopeTheme(
     docsBranch: "main",
     docsDir: "docs",
 
-    // 按目录结构自动生成分组侧边栏，无需手写清单
-    sidebar: "structure",
+    // 每个主题目录单独生成侧栏；写进 locale，否则仍会回退成整棵 docs 树
+    sidebar: Sidebar,
+    locales: {
+      "/": {
+        sidebar: Sidebar,
+      },
+    },
 
     // 深色模式："switch" 在浅色 / 深色 / 自动之间切换（默认行为）
     darkmode: "switch",

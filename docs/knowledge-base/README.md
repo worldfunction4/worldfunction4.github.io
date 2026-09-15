@@ -5,31 +5,6 @@ article: false
 ---
 # 知识库
 
-个人技术笔记与学习资料汇总，使用 [Obsidian](https://obsidian.md/) 管理。
-
-## 目录结构
-
-```
-knowledge-base/
-├── knowledge/              # 笔记主体
-│   ├── agent/              # 已并入 AI 专栏，旧路径保留
-│   ├── C和C++/             # C / C++ 语言
-│   ├── Leetcode/           # 算法题解
-│   ├── Linux/              # Linux 基础
-│   ├── Python/             # Python 语言
-│   ├── study_feel/         # 学习心得 / Git 实践
-│   ├── 关于物理设备/        # 交换机、路由器等硬件
-│   ├── 计算机网络/          # 网络协议与工程
-│   │   ├── 基础知识/
-│   │   ├── 局域网/
-│   │   ├── 面试/
-│   │   └── 网络安全/
-│   ├── 数据结构与算法/       # 数据结构与算法基础
-│   ├── 遇到的一些问题/       # 踩坑记录
-│   └── 专业术语/            # 术语解释
-└── photos/                 # 图片资源（按主题分类）
-```
-
 ## 笔记索引
 
 ### C / C++
@@ -163,8 +138,6 @@ knowledge-base/
 
 ### AI Agent
 
-相关笔记已收到 [AI 专栏](/ai/)。
-
 - [codex报错](knowledge/agent/codex报错.md)
 
 ### 专业术语
@@ -184,7 +157,3 @@ knowledge-base/
 - [无法将项目更改push到远程仓库](knowledge/遇到的一些问题/无法将项目更改push到远程仓库.md)
 - [远程ssh云服务器无法登录](knowledge/遇到的一些问题/远程ssh云服务器无法登录.md)
 - [电脑性能卡顿和虚拟内存设置](knowledge/遇到的一些问题/电脑性能卡顿和虚拟内存设置.md)
-
-## 其他资源
-
-- `photos/` — 文章配图与截图，按主题（`about_network`、`c++`、`OSPF`、`python`、`question`）分类存放。
