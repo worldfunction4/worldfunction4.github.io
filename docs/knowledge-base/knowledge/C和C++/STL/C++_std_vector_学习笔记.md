@@ -1,6 +1,7 @@
 ---
 title: C++ std::vector 学习笔记
 date: 2026-08-19
+order: 2
 category:
   - C和C++
 ---

@@ -16,11 +16,28 @@ const pages = (relativeDir: string) => {
     .map((name) => `${urlBase}${name}`);
 };
 
-const cppNotes = pages("knowledge-base/knowledge/C和C++");
+const cppSidebar = [
+  {
+    text: "STL",
+    prefix: "/knowledge-base/knowledge/C和C++/STL/",
+    collapsible: true,
+    expanded: true,
+    children: [
+      "",
+      "vector容器.md",
+      "C++_std_vector_学习笔记.md",
+      "string容器.md",
+      "list容器.md",
+      "迭代器.md",
+      "迭代器失效规则.md",
+    ],
+  },
+  ...pages("knowledge-base/knowledge/C和C++"),
+];
 
 export const Sidebar = sidebar({
-  "/knowledge-base/knowledge/C和C__/": cppNotes,
-  "/knowledge-base/knowledge/C和C++/": cppNotes,
+  "/knowledge-base/knowledge/C和C__/": cppSidebar,
+  "/knowledge-base/knowledge/C和C++/": cppSidebar,
 
   "/knowledge-base/knowledge/Python/": "structure",
   "/knowledge-base/knowledge/Linux/": "structure",

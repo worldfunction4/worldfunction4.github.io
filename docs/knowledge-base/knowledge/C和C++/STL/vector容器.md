@@ -1,6 +1,7 @@
 ---
 title: vector容器
 date: 2026-08-19
+order: 1
 category:
   - C和C++
 ---
@@ -10,7 +11,7 @@ vector数据结构和数组非常类似，也称为**单端数组**
 那么它与普通数据有什么不同呢？数组是静态空间，而vector可以进行**动态扩展**
 动态扩展也不是在原空间后面续接新空间，而是找更大内存空间，然后将原数据拷贝到新空间，然后释放原空间
 <!-- more -->
-[ std::vector](/knowledge-base/knowledge/C和C++/C++_std_vector_学习笔记.md)里面有更详细的笔记。
+[std::vector](C++_std_vector_学习笔记.md) 里面有更详细的笔记。
 
 ## 构造函数
 
