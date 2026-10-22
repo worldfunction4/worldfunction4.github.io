@@ -2,8 +2,10 @@
 title: Linux基础
 date: 2026-08-19
 category:
-  - Linux
+- Linux
 ---
+# Linux基础
+
 ## 一、文件系统导航
 
 ### 核心命令

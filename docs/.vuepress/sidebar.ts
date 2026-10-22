@@ -1,59 +1,17 @@
-import { readdirSync } from "node:fs";
-import { join } from "node:path";
-import { fileURLToPath } from "node:url";
 import { sidebar } from "vuepress-theme-hope";
 
-const docsRoot = join(fileURLToPath(new URL(".", import.meta.url)), "..");
-
-/** 某目录下的 Markdown 页（不含 README），按文件名排序 */
-const pages = (relativeDir: string) => {
-  const dir = join(docsRoot, relativeDir);
-  const urlBase = `/${relativeDir.replaceAll("\\", "/")}/`;
-
-  return readdirSync(dir)
-    .filter((name) => name.endsWith(".md") && name.toLowerCase() !== "readme.md")
-    .sort((a, b) => a.localeCompare(b, "zh-CN"))
-    .map((name) => `${urlBase}${name}`);
-};
-
-const cppSidebar = [
-  {
-    text: "STL",
-    prefix: "/knowledge-base/knowledge/C和C++/STL/",
-    collapsible: true,
-    expanded: true,
-    children: [
-      "",
-      "vector容器.md",
-      "C++_std_vector_学习笔记.md",
-      "string容器.md",
-      "list容器.md",
-      "迭代器.md",
-      "迭代器失效规则.md",
-    ],
-  },
-  ...pages("knowledge-base/knowledge/C和C++"),
+// 知识库每个顶层目录各自一套侧栏，按目录结构自动生成（子目录会成为可折叠分组）。
+// 目录顺序 / 标题来自各目录 README.md；笔记顺序可用 front matter 的 order 调整。
+const KB = "/knowledge-base/knowledge/";
+const kbFolders = [
+  "C和C++", "C和C__", // VuePress 会把 + 转成 _，两种写法都挂上
+  "Qt框架", "Python", "Linux", "Leetcode", "数据结构与算法", "计算机网络",
+  "遇到的一些问题", "专业术语", "agent", "study_feel", "关于物理设备", "关于经验",
+  "Mermaid", "数据库", "English", "杂项", "想到的问题", "Git",
 ];
 
 export const Sidebar = sidebar({
-  "/knowledge-base/knowledge/C和C__/": cppSidebar,
-  "/knowledge-base/knowledge/C和C++/": cppSidebar,
-
-  "/knowledge-base/knowledge/Python/": "structure",
-  "/knowledge-base/knowledge/Linux/": "structure",
-  "/knowledge-base/knowledge/Leetcode/": "structure",
-  "/knowledge-base/knowledge/数据结构与算法/": "structure",
-  "/knowledge-base/knowledge/遇到的一些问题/": "structure",
-  "/knowledge-base/knowledge/专业术语/": "structure",
-  "/knowledge-base/knowledge/agent/": "structure",
-  "/knowledge-base/knowledge/study_feel/": "structure",
-  "/knowledge-base/knowledge/关于物理设备/": "structure",
-
-  "/knowledge-base/knowledge/计算机网络/基础知识/": "structure",
-  "/knowledge-base/knowledge/计算机网络/局域网/": "structure",
-  "/knowledge-base/knowledge/计算机网络/网络安全/": "structure",
-  "/knowledge-base/knowledge/计算机网络/面试/": "structure",
-  "/knowledge-base/knowledge/计算机网络/": "structure",
+  ...Object.fromEntries(kbFolders.map((f) => [`${KB}${f}/`, "structure" as const])),
 
   "/Network/eNSP/": "structure",
   "/Network/基础知识/": "structure",

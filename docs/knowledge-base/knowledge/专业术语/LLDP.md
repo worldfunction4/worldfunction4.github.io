@@ -2,10 +2,12 @@
 title: LLDP
 date: 2026-08-19
 category:
-  - 计算机网络
+- 计算机网络
 tag:
-  - LLDP
+- LLDP
 ---
+# LLDP
+
 **LLDP**（Link Layer Discovery Protocol，链路层发现协议）是一个**二层网络协议**，设备用它向邻居通告自己的身份和能力。
 
 ##  工作原理

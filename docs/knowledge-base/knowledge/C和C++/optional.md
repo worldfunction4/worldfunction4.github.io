@@ -2,8 +2,10 @@
 title: optional
 date: 2026-09-14
 category:
-  - C和C++
+- C和C++
 ---
+# optional
+
 `std::optional<T>`是c++17引入的“包裹类型”，用来表示一个值**可能存在（包含类型 `T` 的数据），也可能为空（不包含任何值）**。
 
 头文件: `<optional>`

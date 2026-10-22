@@ -1,10 +1,16 @@
 ---
-title: list容器
+title: list 容器
 date: 2026-08-19
 order: 4
 category:
-  - C和C++
+- C和C++
 ---
+# list 容器
+
+<!-- more -->
+
+相关：[STL](STL.md)、[vector容器](vector容器.md)、[迭代器](迭代器.md)、[迭代器失效规则](迭代器失效规则.md)
+
 ## 基本概念
 
 `list` 是 C++ STL 中的**双向链表**容器，头文件为 `<list>`。

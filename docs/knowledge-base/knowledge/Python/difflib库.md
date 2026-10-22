@@ -2,7 +2,7 @@
 title: 关于
 date: 2026-08-19
 category:
-  - Python
+- Python
 ---
 [Python官方文档](https://docs.python.org/zh-cn/3.14/library/difflib.html#sequencematcher-objects)
 
@@ -34,7 +34,9 @@ difflib.unified_diff(
 
 ### 返回值
 
-返回一个 [generator](/knowledge-base/knowledge/Python/generator.md)（生成器），每次 [yield](/knowledge-base/knowledge/Python/yield.md) 一行字符串（含换行）。  
+<!-- more -->
+
+返回一个 [生成器](生成器.md)（生成器），每次 [yield](yield.md) 一行字符串（含换行）。  
 常见用法：
 ```Python
 lines = difflib.unified_diff(a, b, fromfile="old.cfg", tofile="new.cfg", n=3)
@@ -163,7 +165,6 @@ print("\n".join(d_res)) # 这行代码的作用将差异化的结果列表d_res�
 print("\n======")
 ```
 输出:
-
 ```mermaid
 flowchart TD
   subgraph Differ["Differ.compare 标记"]
@@ -197,7 +198,6 @@ print(f"a和b字符串的公共子串:a[{match.a}] b[{match.b}] 长度{match.siz
 print(f"a和b字符串的公共子串内容:{a[match.a:match.a+match.size]}")
 ```
 输出：
-
 ```mermaid
 flowchart LR
   A["layyes is a student"] --> R["ratio 相似度"]
@@ -220,7 +220,6 @@ print("统一格式差异报告:")
 print("\n".join(diff))
 ```
 输出：
-
 ```mermaid
 flowchart TB
   old["old.py return a+b"] -->|unified_diff| new["new.py reutrn a+b 并新增 add2"]

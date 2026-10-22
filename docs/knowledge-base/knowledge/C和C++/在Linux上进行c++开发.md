@@ -2,9 +2,9 @@
 title: 在 Linux 上进行 C++ 开发
 date: 2026-08-19
 category:
-  - C和C++
+- C和C++
 tag:
-  - Linux
+- Linux
 ---
 # 在 Linux 上进行 C++ 开发
 

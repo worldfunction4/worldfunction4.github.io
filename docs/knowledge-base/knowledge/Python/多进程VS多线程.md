@@ -2,8 +2,10 @@
 title: 多进程VS多线程
 date: 2026-08-19
 category:
-  - Python
+- Python
 ---
+# 多进程VS多线程
+
 ## 核心概念
 
 ### 进程 Process
@@ -38,4 +40,6 @@ CPU 程序执行 的最小单位。就像工厂里的工人，寄生于进程中
 	适合高频计算，I/O密集型任务，如文件操作，网络请求，实时数据处理等
 ## Python 特殊情况
 
-受限于 GIL，Python的多线程在CPU密集型任务中表现不佳。Python处理CPU密集任务必须使用多进程，而I/O密集型任务首选多线程。至于这两种任务的区别详情[IO密集型和CPU密集型](/knowledge-base/knowledge/Python/IO密集型和CPU密集型.md)。
+<!-- more -->
+
+受限于 GIL，Python的多线程在CPU密集型任务中表现不佳。Python处理CPU密集任务必须使用多进程，而I/O密集型任务首选多线程。至于这两种任务的区别详情[IO密集型和CPU密集型](IO密集型和CPU密集型.md)。

@@ -2,13 +2,14 @@
 title: codex报错
 date: 2026-08-19
 category:
-  - AI
+- AI
 tag:
-  - Codex
-  - Agent
+- Codex
+- Agent
 ---
+# codex报错
+
 今天登录codex发现了以下问题：
-<!-- more -->
 
 ```mermaid
 flowchart TD

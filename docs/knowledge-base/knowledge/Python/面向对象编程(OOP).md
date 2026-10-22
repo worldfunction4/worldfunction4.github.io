@@ -2,8 +2,10 @@
 title: 面向对象编程(OOP)
 date: 2026-08-19
 category:
-  - Python
+- Python
 ---
+# 面向对象编程(OOP)
+
 面向对象编程（Object-Oriented Programming，简称 OOP），一种“组织代码的思维方式”。它会让大型项目更容易维护、更像“搭积木”。
 
 听起来未免有点太生涩抽象，所以类比成网工要做的事情就是：
@@ -19,7 +21,7 @@ device2_vendor = "Cisco"
 
 如果设备变成 100 台：
 
-```python
+```Pyhton
 device57_ip
 device57_vendor
 device57_username
@@ -176,7 +178,7 @@ print(dog2.name)
 | 特性                  | 作用          |
 | ------------------- | ----------- |
 | 封装                  | 把数据和功能包装在一起 |
-| [继承](/knowledge-base/knowledge/Python/面向对象编程(OOP).md#继承) | 子类复用父类代码    |
+| [继承](面向对象编程(OOP).md#继承\) | 子类复用父类代码    |
 | 多态                  | 同一种调用产生不同效果 |
 | 抽象                  | 提取共性        |
 

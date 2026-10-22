@@ -2,8 +2,10 @@
 title: Linux的SUID机制和安全风险
 date: 2026-08-26
 category:
-  - Linux
+- Linux
 ---
+# Linux的SUID机制和安全风险
+
 Linux 中的 **SUID（Set User ID）** 是一种特殊的权限标志位。它是 Linux 权限架构中为了解决“**普通用户需要临时执行某些只有特权用户才能完成的任务**”而设计的机制。
 
 ## 一、 SUID 的工作机制

@@ -2,9 +2,9 @@
 title: Netmiko 网络自动化库
 date: 2026-08-19
 category:
-  - Python
+- Python
 tag:
-  - Netmiko
+- Netmiko
 ---
 # Netmiko 网络自动化库
 

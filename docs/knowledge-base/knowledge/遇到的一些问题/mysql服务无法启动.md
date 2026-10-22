@@ -2,10 +2,11 @@
 title: mysql服务无法启动
 date: 2026-09-07
 category:
-  - 踩坑
+- 踩坑
 tag:
-  - MySQL
+- MySQL
 ---
+# mysql服务无法启动
 
 今天在跑一个项目时遇到了以下的问题：
 ```
@@ -296,5 +297,9 @@ flowchart TD
   C --> D["Windows 侧 MySQL 也在听 3306"]
   D --> E["关掉 Windows MySQL 服务"]
 ```
+
+<!-- more -->
+
+![wsl-mysql](./imgs/wsl-mysql.png)
 
 问题解决。

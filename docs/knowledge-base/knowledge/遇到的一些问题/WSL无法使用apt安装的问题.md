@@ -2,9 +2,9 @@
 title: 总结
 date: 2026-08-26
 category:
-  - 踩坑
+- 踩坑
 tag:
-  - WSL
+- WSL
 ---
 今天我想使用
 ```bash
@@ -59,10 +59,10 @@ Connection failed [IP: 198.18.0.90 80]
 
 ```mermaid
 flowchart TD
-  A["apt 超时 198.18.0.90"] --> B["Clash TUN"]
-  B --> C{"DNS 覆写开了吗?"}
-  C -->|否| D["域名解析超时"]
-  C -->|是| E["走代理正常装包"]
+  A["apt 超时 198.18.0.90"] --> B[Clash TUN]
+  B --> C{DNS 覆写开了吗?}
+  C -->|否| D[域名解析超时]
+  C -->|是| E[走代理正常装包]
 ```
 
 看来是忘记开DNS覆写了...

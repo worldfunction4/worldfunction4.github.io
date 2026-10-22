@@ -2,10 +2,11 @@
 title: 编写http服务器时遇到的知识
 date: 2026-09-07
 category:
-  - 计算机网络
+- 计算机网络
 ---
+# 编写http服务器时遇到的知识
+
 今天我在进行C++网络编程时遇到了一些奇怪的现象：
-<!-- more -->
 
 ```mermaid
 sequenceDiagram

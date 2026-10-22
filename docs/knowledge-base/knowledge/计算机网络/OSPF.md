@@ -2,11 +2,15 @@
 title: OSPF
 date: 2026-08-19
 category:
-  - 计算机网络
+- 计算机网络
 tag:
-  - OSPF
+- OSPF
 ---
-OSPF（Open Shortest Path First， **开放式路径最短优先**）是一种基于链路状态算法的**内部网关协议（[IGP协议](/knowledge-base/knowledge/计算机网络/IGP协议.md)）**，专为大型网络设计。它收敛快、无环路、支持VLSM/CIDR，是目前企业网和数据中心最核心的路由协议。
+# OSPF
+
+<!-- more -->
+
+OSPF（Open Shortest Path First， **开放式路径最短优先**）是一种基于链路状态算法的**内部网关协议（[IGP协议](IGP协议.md)）**，专为大型网络设计。它收敛快、无环路、支持VLSM/CIDR，是目前企业网和数据中心最核心的路由协议。
 
 ## 第一层：链路状态本质、Area 0 骨干区、Router ID
 
@@ -136,7 +140,7 @@ Cost = 参考带宽(100Mbps) / 接口实际带宽(bps)
 
 ## 实操：抓包OSPF的七种状态
 
-为了更好理解OSPF的[七种状态](/knowledge-base/knowledge/计算机网络/OSPF.md#^b4473b)，我在eNSP上进行了抓包实验。邻居建立可以画成这条状态链：
+为了更好理解OSPF的[七种状态](OSPF.md#^b4473b)，我在eNSP上进行了抓包实验。邻居建立可以画成这条状态链：
 
 ```mermaid
 stateDiagram-v2

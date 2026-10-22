@@ -2,8 +2,9 @@
 title: jinja2模板
 date: 2026-08-19
 category:
-  - Python
+- Python
 ---
+# jinja2模板
 
 jinja 是一个python流行的模板语言，仿照Django模板的语言，但其实就是一个专门用来拼字符串的工具。**核心思想**：把 HTML 和 Python 逻辑分开
 
@@ -17,21 +18,16 @@ jinja 是一个python流行的模板语言，仿照Django模板的语言，但�
 列一下常见的
 ### 变量
 
-```jinja2
-{{ 变量名称 }}
-```
+<span v-pre>{{ 变量名称 }}</span>
 
 ### 循环
 
-```jinja2
 {% for i in range(100) %}
      代码块
 {% endfor %}
-```
 
 ### 条件判断
 
-```jinja2
 {% if true %}
 	代码块1
 {% elif true %}
@@ -39,25 +35,19 @@ jinja 是一个python流行的模板语言，仿照Django模板的语言，但�
 {% else %}
 	代码块3
 {% endif %}
-```
 
 ### 过滤器
 
-```jinja2
-{{ vendor_list | func() }}
-```
+<span v-pre>{{ vendor_list | func() }}</span>
+
 
 ### 继承模板
 
-```jinja2
 {% extends "base.conf.tpl" %}
-```
 
 ### include 导入其他模板
 
-```jinja2
 {% include “sub.tpl” %}
-```
 
 ## 该怎么用？
 
@@ -112,7 +102,7 @@ Python数据
 ```HTML
 <h1>{{ name }}</h1>
 ```
-这里面的<code v-pre>{{ name }}</code>意思就是以后再填上。
+这里面的`{{ name }}`意思就是以后再填上。
 
 #### 第二步：传数据
 
@@ -129,7 +119,7 @@ render(name= "SW1")
 
 ## Jinja2原理
 
-内部干的事情就像：找到<code v-pre>{{ name }}</code>，并替换，最后再输出整个字符串，所以本质还是**字符串处理**。
+内部干的事情就像：找到`{{ name }}`，并替换，最后再输出整个字符串，所以本质还是**字符串处理**。
 
 ## for/if
 

@@ -2,8 +2,10 @@
 title: IO密集型和CPU密集型
 date: 2026-08-19
 category:
-  - Python
+- Python
 ---
+# IO密集型和CPU密集型
+
 ## 性能瓶颈（Bottleneck）
 ## 1. CPU密集型
 
@@ -41,7 +43,7 @@ category:
 |**优化方向**|**多进程**、更高效的算法、GPU 加速|**多线程**、**异步协程 (Asyncio)**、缓存|
 ## 4. 为什么这个区别在Python中极其重要？
 
-在 Python 环境下，因为[GIL（全局解释器锁）](/knowledge-base/knowledge/专业术语/GIL（全局解释器锁）.md)的存在，所以这个区别十分关键：
+在 Python 环境下，因为[GIL(全局解释器锁)](<../专业术语/GIL(全局解释器锁).md>)的存在，所以这个区别十分关键：
 **对于CPU密集型任务**：
 	如果使用**多线程**，Python 会因为GIL的限制，让多个线程轮流在一个CPU核心上执行，反而会因为频繁切换上下文（context switch）导致运行更慢。
 		**正确使用方法**：使用 `multiprocessing`(多进程)，利用多核CPU的物理优势实现真正的并行

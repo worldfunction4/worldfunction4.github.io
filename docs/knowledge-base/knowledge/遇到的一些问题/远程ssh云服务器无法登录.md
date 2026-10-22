@@ -2,13 +2,13 @@
 title: 远程ssh云服务器无法登录
 date: 2026-08-26
 category:
-  - 踩坑
+- 踩坑
 tag:
-  - SSH
+- SSH
 ---
-今天想用自己的云服务器做一些练习以及实现，但是遇到了一些问题：
+# 远程ssh云服务器无法登录
 
-<!-- more -->
+今天想用自己的云服务器做一些练习以及实现，但是遇到了一些问题：
 
 ```mermaid
 flowchart TD
@@ -18,6 +18,10 @@ flowchart TD
   D --> E["-i 指定私钥"]
   E --> F[两边密钥信息不一致]
 ```
+
+<!-- more -->
+
+![ssh_error](./imgs/ssh_error.png)
 
 结果发现是密钥信息过期了，所以执行了`ssh-keygen -R ip`删除原有信息
 但是又出现了这个错误：admin@ip: Permission denied (publickey).

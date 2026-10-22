@@ -2,8 +2,10 @@
 title: 关于sudo
 date: 2026-08-26
 category:
-  - Linux
+- Linux
 ---
+# 关于sudo
+
 今天在使用apt命令时突然想到：为什么使用sudo就能把apt命令的权限提高呢？于是我带着问题去询问了AI，整理后得到的答案如下：
 	`sudo` 是 **Superuser Do**（以超级用户身份执行）的缩写。Linux 系统的设计哲学是“默认最小权限”，普通用户不能修改系统关键文件或安装软件，只有 `root`（超级用户）才能操作。`sudo` 允许提权的原理如下：
 **1. 提权凭证与配置文件（`/etc/sudoers`）** 当你在命令前加上 `sudo` 时，系统并不会直接无条件放行，而是先去读取安全配置文件 `/etc/sudoers`。
@@ -22,4 +24,6 @@ category:
     
 - `sudo` 可执行文件的所有者正是 `root`。因此，当普通用户触发 `sudo` 时，系统借由 `setuid` 机制将运行进程的有效用户 ID（EUID）临时切换成了 0（即 `root` 的 ID），从而拥有了对系统的最高控制权。
 
-至于再具体的机制就在[Linux的SUID机制和安全风险](/knowledge-base/knowledge/Linux/Linux的SUID机制和安全风险.md)中了。
+<!-- more -->
+
+至于再具体的机制就在[Linux的SUID机制和安全风险](Linux的SUID机制和安全风险.md)中了。

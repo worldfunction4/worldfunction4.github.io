@@ -2,10 +2,12 @@
 title: WSL2无法安装
 date: 2026-08-19
 category:
-  - 踩坑
+- 踩坑
 tag:
-  - WSL
+- WSL
 ---
+# WSL2无法安装
+
 今天打算试一下WSL，但当我兴冲冲地准备去安装时，却遇到了以下问题：
 
      WSL2 安装 Ubuntu 时报错：

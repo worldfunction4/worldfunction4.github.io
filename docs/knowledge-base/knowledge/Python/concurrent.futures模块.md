@@ -2,13 +2,15 @@
 title: ThreadPoolExecutor（线程池执行器）
 date: 2026-08-19
 category:
-  - Python
+- Python
 ---
-上次整理了一下[多进程VS多线程](/knowledge-base/knowledge/Python/多进程VS多线程.md)的区别，运用到Python中大概就是如标题所示的模块
+<!-- more -->
+
+上次整理了一下[多进程VS多线程](多进程VS多线程.md)的区别，运用到Python中大概就是如标题所示的模块
 
 # ThreadPoolExecutor（线程池执行器）
 
-**ThreadPoolExecutor** 是基于线程的异步执行器。它最适合处理 **I/O 密集型（I/O-bound）** 任务。一般情况下，Python是没办法使用多线程的，是因为[GIL（全局解释器锁）](/knowledge-base/knowledge/专业术语/GIL（全局解释器锁）.md)的存在。不过[ Python 3.13](/knowledge-base/knowledge/专业术语/GIL（全局解释器锁）.md#Python 3.13 的“无锁”实验 )似乎开始尝试去掉它了。
+**ThreadPoolExecutor** 是基于线程的异步执行器。它最适合处理 **I/O 密集型（I/O-bound）** 任务。一般情况下，Python是没办法使用多线程的，是因为[GIL(全局解释器锁)](<../专业术语/GIL(全局解释器锁).md>)的存在。不过[Python 3.13](../专业术语/GIL(全局解释器锁).md#python-3.13-的“无锁”实验-)似乎开始尝试去掉它了。
 
 ### 核心原理
 
@@ -44,15 +46,15 @@ with ThreadPoolExecutor(max_workers=5) as executor:
 
 # ProcessPoolExecutor（进程池执行器）
 
-**ProcessPoolExecutor** 则是基于多进程的异步执行器。它通过利用多核 CPU 来实现真正的并行，最适合处理 **CPU 密集型（CPU-bound）** 任务。虽然它不受[GIL（全局解释器锁）](/knowledge-base/knowledge/专业术语/GIL（全局解释器锁）.md)的约束，但也不适合用来代替多线程的任务，因为这会浪费资源。
+**ProcessPoolExecutor** 则是基于多进程的异步执行器。它通过利用多核 CPU 来实现真正的并行，最适合处理 **CPU 密集型（CPU-bound）** 任务。虽然它不受[GIL(全局解释器锁)](<../专业术语/GIL(全局解释器锁).md>)的约束，但也不适合用来代替多线程的任务，因为这会浪费资源。
 
 ### 核心原理
 
-它使用 [multiprocessing模块](/knowledge-base/knowledge/Python/multiprocessing模块.md)。每个进程都有自己独立的 Python 解释器和内存空间。
+它使用 [multiprocessing模块](multiprocessing模块.md)。每个进程都有自己独立的 Python 解释器和内存空间。
 
 - **绕过 GIL**：因为每个进程有自己的 GIL，所以它能实现真正的多核并行。
     
-- **序列化（Pickling）**：注意！因为进程间内存不共享，数据必须通过[pickle序列化](/knowledge-base/knowledge/Python/pickle序列化.md)后才能在进程间传递。如果函数或参数无法被 pickle，程序会报错。
+- **序列化（Pickling）**：注意！因为进程间内存不共享，数据必须通过[pickle序列化](pickle序列化.md)后才能在进程间传递。如果函数或参数无法被 pickle，程序会报错。
     
 
 ### 适用场景
@@ -83,7 +85,7 @@ if __name__ == "__main__": # 进程池在 Windows 下必须放在此判断下
 
 # as_completed（高效的结果获取器）
 
-`as_completed(fs, timeout=None)` 是一个生成器，它接收一个 Future 列表，并在任务**完成时**（无论顺序）立即 [yield](/knowledge-base/knowledge/Python/yield.md) 出该 Future。
+`as_completed(fs, timeout=None)` 是一个生成器，它接收一个 Future 列表，并在任务**完成时**（无论顺序）立即 [yield](yield.md) 出该 Future。
 
 默认情况下，如果我们按顺序遍历 Future 列表并调用 `.result()`，如果第一个任务很慢，你会一直阻塞在那里，即使后面的任务都已经做好了。`as_completed` 解决了这个问题：**谁先跑完，就先处理谁。**
 ```Python

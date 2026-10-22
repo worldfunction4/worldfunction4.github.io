@@ -2,7 +2,7 @@
 title: new 关键字（C++）
 date: 2026-08-19
 category:
-  - C和C++
+- C和C++
 ---
 # new 关键字（C++）
 
@@ -65,7 +65,7 @@ MyClass* objs = new MyClass[3];
 delete[] objs;     // 对每个对象调用析构函数
 ```
 
-### ⚠️ 重要规则
+###  重要规则
 
 | 分配方式 | 释放方式 | 错误后果 |
 |---------|---------|---------|
@@ -208,7 +208,7 @@ delete obj
 
 ## 常见陷阱与最佳实践
 
-### ❌ 陷阱 1：忘记 delete 导致内存泄漏
+### 陷阱 1：忘记 delete 导致内存泄漏
 
 ```cpp
 void leak() {
@@ -217,14 +217,14 @@ void leak() {
 }
 ```
 
-### ❌ 陷阱 2：delete 与 delete[] 混用
+###  陷阱 2：delete 与 delete[] 混用
 
 ```cpp
 int* arr = new int[10];
 delete arr;  // 未定义行为！应使用 delete[] arr;
 ```
 
-### ❌ 陷阱 3：二次释放（double delete）
+###  陷阱 3：二次释放（double delete）
 
 ```cpp
 int* p = new int(42);
@@ -232,7 +232,7 @@ delete p;
 delete p;  // 未定义行为！
 ```
 
-### ❌ 陷阱 4：野指针（使用已释放的指针）
+###  陷阱 4：野指针（使用已释放的指针）
 
 ```cpp
 int* p = new int(42);
@@ -240,7 +240,7 @@ delete p;
 *p = 10;  // 未定义行为！已释放的内存
 ```
 
-### ✅ 最佳实践：使用智能指针代替裸 new
+###  实践：使用智能指针代替裸 new
 
 ```cpp
 #include <memory>
@@ -252,7 +252,7 @@ std::shared_ptr<int> p2 = std::make_shared<int>(42);
 // 无需手动 delete，智能指针自动管理生命周期
 ```
 
-### ✅ 最佳实践：RAII 原则
+###  最佳实践：RAII 原则
 
 ```cpp
 class ResourceWrapper {

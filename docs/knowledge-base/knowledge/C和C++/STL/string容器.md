@@ -1,10 +1,16 @@
 ---
-title: string容器
+title: string 容器
 date: 2026-08-19
 order: 3
 category:
-  - C和C++
+- C和C++
 ---
+# string 容器
+
+<!-- more -->
+
+`std::string` 是 STL 里的字符串，底层接近动态字符数组。相关：[STL](STL.md)、[vector容器](vector容器.md)、[迭代器](迭代器.md)
+
 ## 构造函数
 
 ## 赋值操作
